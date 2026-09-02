@@ -119,7 +119,7 @@ body {
 }
 
 
-.container {
+.main-container {
     display: flex;
     max-width: 1100px;
     width: 90%;
@@ -217,4 +217,59 @@ body {
     color: #ffe0b2;
     margin-top: auto;
     font-size: 0.9rem;
+}
+
+/* 1. Ajustes base para evitar desbordamiento */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 2. Header adaptable */
+.main-header {
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.navbar ul {
+    flex-wrap: wrap;
+}
+
+/* 3. Contenedor principal adaptable */
+.container {
+    flex-direction: row; /* Por defecto en pantallas grandes */
+}
+
+/* 4. Adaptabilidad del Carousel dentro de la hero-banner */
+.carousel-inner img {
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* 5. Media Queries para móviles y tablets */
+@media (max-width: 768px) {
+    .main-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .container {
+        flex-direction: column; /* Apila el menú lateral y el contenido principal */
+        width: 95%;
+        padding: 0;
+    }
+
+    .sidebar {
+        width: 100%; /* La barra lateral ocupa todo el ancho en móviles */
+    }
+
+    .navbar ul {
+        justify-content: center;
+    }
+
+    /* Ocultar separadores de texto en móviles para mejorar el espacio */
+    .separator {
+        display: none;
+    }
 }
