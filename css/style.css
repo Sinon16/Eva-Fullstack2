@@ -1,0 +1,220 @@
+:root {
+    --primary-color: #e65100;     
+    --primary-hover: #bf360c;     
+    --header-bg: #fff3e0;         
+    --text-color: #2e2620;        
+    --link-color: #d84315;       
+    --accent-green: #2e7d32;     
+    --bg-color: #faf8f5;          
+    --card-bg: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+.main-header {
+    background: var(--header-bg);
+    color: var(--text-color);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #ffe0b2;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-icon {
+    font-size: 1.8rem;
+}
+
+.logo h1 {
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    font-weight: 800;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none; 
+    gap: 10px;
+    align-items: center;
+}
+
+.navbar a {
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.navbar a:hover, .navbar a.active {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.separator {
+    color: #bdbdbd;
+    font-size: 0.85rem;
+}
+
+.cart-btn {
+    background-color: var(--accent-green);
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+}
+
+.cart-btn:hover {
+    background-color: #1b5e20;
+}
+
+
+.user-subbar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.6rem 2rem;
+    background-color: #fff;
+    border-bottom: 1px solid #f0e6df;
+}
+
+.user-links {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.user-links a {
+    color: var(--link-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.user-links a:hover {
+    text-decoration: underline;
+}
+
+
+.container {
+    display: flex;
+    max-width: 1100px;
+    width: 90%;
+    margin: 2rem auto;
+    gap: 2rem;
+    flex: 1;
+}
+
+
+.sidebar {
+    width: 240px;
+    background: var(--card-bg);
+    padding: 1.2rem;
+    border-radius: 12px;
+    border: 1px solid #f0e6df;
+    height: fit-content;
+}
+
+.sidebar h3 {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    margin-bottom: 0.8rem;
+    border-bottom: 2px solid var(--header-bg);
+    padding-bottom: 0.4rem;
+}
+
+.sidebar ul {
+    list-style: none; 
+}
+
+.sidebar li {
+    margin-bottom: 0.6rem;
+}
+
+.sidebar a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.95rem;
+    display: block;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.sidebar a:hover {
+    background: var(--header-bg);
+    color: var(--primary-color);
+}
+
+
+.main-content {
+    flex: 1;
+}
+
+.hero-banner {
+    background: linear-gradient(135deg, #ffe0b2 0%, #fff3e0 100%);
+    padding: 3rem 2rem;
+    border-radius: 12px;
+    border: 1px solid #ffcc80;
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.hero-banner h2 {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.hero-banner p {
+    color: #5d4037;
+    margin-bottom: 1.5rem;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    transition: background 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+
+.main-footer {
+    text-align: center;
+    padding: 1.2rem;
+    background: #3e2723; 
+    color: #ffe0b2;
+    margin-top: auto;
+    font-size: 0.9rem;
+}
