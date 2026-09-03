@@ -1,11 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Listado de Usuarios - Admin</title>
+    <!-- Referencia relativa a tu archivo CSS único -->
+    <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
-    
+<body class="admin-layout">
+
+    <!-- Menú Lateral (Sidebar) -->
+    <aside class="admin-sidebar">
+        <header class="sidebar-header">
+            <h2>🍔 FoodStore Admin</h2>
+        </header>
+        
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="index.html">🏠 Dashboard</a></li>
+                
+                <li class="nav-category">Gestión de Productos</li>
+                <li><a href="mostrar_productos.html">📦 Listar Productos</a></li>
+                <li><a href="nuevo_producto.html">➕ Nuevo Producto</a></li>
+                
+                <li class="nav-category">Gestión de Usuarios</li>
+                <!-- Esta página es la activa ahora -->
+                <li><a href="mostrar_usuarios.html" class="active">👥 Listar Usuarios</a></li>
+                <li><a href="nuevo_usuario.html">➕ Nuevo Usuario</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Contenido Principal -->
+    <main class="admin-main">
+        
+        <header class="admin-header">
+            <h1>Gestión de Usuarios</h1>
+            <!-- Botón para ir al formulario de nuevo usuario -->
+            <a href="nuevo_usuario.html" class="btn-primary">+ Agregar Usuario</a>
+        </header>
+
+        <section class="table-container">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>RUN</th>
+                        <th>Nombre Completo</th>
+                        <th>Correo</th>
+                        <th>Rol</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>19011022-K</strong></td>
+                        <td>Juan Pérez</td>
+                        <td>juan@duoc.cl</td>
+                        <td class="badge-admin">Administrador</td>
+                        <td>
+                            <a href="editar_usuario.html" class="action-link action-edit">Editar</a>
+                            <a href="#" class="action-link action-delete">Eliminar</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>20123456-7</strong></td>
+                        <td>María González</td>
+                        <td>maria@gmail.com</td>
+                        <td class="badge-cliente">Cliente</td>
+                        <td>
+                            <a href="editar_usuario.html" class="action-link action-edit">Editar</a>
+                            <a href="#" class="action-link action-delete">Eliminar</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>18765432-1</strong></td>
+                        <td>Carlos Rojas</td>
+                        <td>crojas@profesor.duoc.cl</td>
+                        <td class="badge-vendedor">Vendedor</td>
+                        <td>
+                            <a href="editar_usuario.html" class="action-link action-edit">Editar</a>
+                            <a href="#" class="action-link action-delete">Eliminar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+    </main>
+
 </body>
 </html>

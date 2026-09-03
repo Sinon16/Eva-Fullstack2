@@ -1,11 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard - Administrador</title>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
-    
+
+<!-- Clase principal que controlará que todo se vea como un panel -->
+<body class="admin-layout">
+
+    <!-- MENÚ VERTICAL (SIDEBAR) -->
+    <aside class="admin-sidebar">
+        <header class="sidebar-header">
+            <h2>🍔 FoodStore Admin</h2>
+        </header>
+        
+        <nav class="sidebar-nav">
+            <ul>
+                <li>
+                    <a href="index.html" class="active">🏠 Dashboard (Home)</a>
+                </li>
+                
+                <li class="nav-category">Gestión de Productos</li>
+                <li><a href="mostrar_productos.html">📦 Listar Productos</a></li>
+                <li><a href="nuevo_producto.html">➕ Nuevo Producto</a></li>
+                
+                <li class="nav-category">Gestión de Usuarios</li>
+                <li><a href="mostrar_usuarios.html">👥 Listar Usuarios</a></li>
+                <li><a href="nuevo_usuario.html">➕ Nuevo Usuario</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL AL CENTRO -->
+    <main class="admin-main">
+        
+        <!-- Cabecera Superior -->
+        <header class="top-header">
+            <h1>¡HOLA Administrador!</h1>
+            <div class="notification-icon">🔔</div>
+        </header>
+
+        <!-- Área de Trabajo / Dashboard -->
+        <section class="dashboard-content">
+            
+            <div class="welcome-card">
+                <h2>Bienvenido al Panel de Control</h2>
+                <p>Selecciona una opción del menú lateral para comenzar a administrar la tienda.</p>
+                
+                <!-- Tarjetas de Resumen Visuales -->
+                <div class="stats-grid">
+                    
+                    <article class="stat-card primary-stat">
+                        <h4>Total Productos</h4>
+                        <p class="stat-number">15</p>
+                    </article>
+
+                    <article class="stat-card success-stat">
+                        <h4>Usuarios Activos</h4>
+                        <p class="stat-number">4</p>
+                    </article>
+
+                </div>
+            </div>
+
+        </section>
+        
+    </main>
+
 </body>
 </html>

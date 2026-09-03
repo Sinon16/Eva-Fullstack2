@@ -1,11 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Inventario de Productos - Admin</title>
+    <!-- Referencia relativa correcta a tu CSS externo -->
+    <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
-    
+<body class="admin-layout">
+
+    <!-- Menú Lateral -->
+    <aside class="admin-sidebar">
+        <header class="sidebar-header">
+            <h2>🍔 FoodStore Admin</h2>
+        </header>
+        
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="index.html">🏠 Dashboard</a></li>
+                
+                <li class="nav-category">Gestión de Productos</li>
+                <!-- Esta página está activa -->
+                <li><a href="mostrar_productos.html" class="active">📦 Listar Productos</a></li>
+                <li><a href="nuevo_producto.html">➕ Nuevo Producto</a></li>
+                
+                <li class="nav-category">Gestión de Usuarios</li>
+                <li><a href="mostrar_usuarios.html">👥 Listar Usuarios</a></li>
+                <li><a href="nuevo_usuario.html">➕ Nuevo Usuario</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Contenido Principal -->
+    <main class="admin-main">
+        
+        <header class="admin-header">
+            <h1>Inventario de Productos</h1>
+            <!-- Botón para ir al formulario de nuevo producto -->
+            <a href="nuevo_producto.html" class="btn-primary">+ Agregar Producto</a>
+        </header>
+
+        <section class="table-container">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>P001</strong></td>
+                        <td>Pizza Pepperoni</td>
+                        <td>Pizzas y Hamburguesas</td>
+                        <td>$9.990</td>
+                        <td class="badge-vendedor">50</td>
+                        <td>
+                            <a href="editar_producto.html" class="action-link action-edit">Editar</a>
+                            <a href="#" class="action-link action-delete">Eliminar</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>P002</strong></td>
+                        <td>Hamburguesa Clásica</td>
+                        <td>Pizzas y Hamburguesas</td>
+                        <td>$6.500</td>
+                        <td class="badge-vendedor">12</td>
+                        <td>
+                            <a href="editar_producto.html" class="action-link action-edit">Editar</a>
+                            <a href="#" class="action-link action-delete">Eliminar</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>P003</strong></td>
+                        <td>Bowl Proteico</td>
+                        <td>Opción Saludable</td>
+                        <td>$7.200</td>
+                        <!-- Reutilizamos la clase del botón eliminar para darle el color rojo de alerta -->
+                        <td class="action-delete" style="font-weight: bold;">2 (Crítico)</td>
+                        <td>
+                            <a href="editar_producto.html" class="action-link action-edit">Editar</a>
+                            <a href="#" class="action-link action-delete">Eliminar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+    </main>
+
 </body>
 </html>
