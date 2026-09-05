@@ -38,8 +38,64 @@
                 <h2 style="color: var(--primary-color); margin-bottom: 1.5rem; text-align: center;">Datos del Usuario</h2>
                 
                 <form id="form-nuevo-usuario">
-                    <!-- Aquí irán los campos de entrada (inputs) -->
-                </form>
+<div class="form-group">
+                        <label for="run">RUN (Sin puntos ni guion) *</label>
+                        <input type="text" id="run" name="run" minlength="7" maxlength="9" placeholder="Ej: 19011022K" required>
+                        <span class="error-message" id="error-run"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nombreUsuario">Nombre *</label>
+                            <input type="text" id="nombreUsuario" name="nombreUsuario" maxlength="50" placeholder="Ej: Juan" required>
+                            <span class="error-message" id="error-nombreUsuario"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="apellidos">Apellidos *</label>
+                            <input type="text" id="apellidos" name="apellidos" maxlength="100" placeholder="Ej: Pérez" required>
+                            <span class="error-message" id="error-apellidos"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="correo">Correo Electrónico *</label>
+                        <input type="email" id="correo" name="correo" maxlength="100" placeholder="usuario@duoc.cl" required>
+                        <span class="error-message" id="error-correo"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rol">Tipo de Usuario *</label>
+                        <select id="rol" name="rol" required>
+                            <option value="">Seleccione un perfil</option>
+                            <option value="Administrador">Administrador</option>
+                            <option value="Vendedor">Vendedor</option>
+                            <option value="Cliente">Cliente</option>
+                        </select>
+                        <span class="error-message" id="error-rol"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="region">Región</label>
+                            <select id="region" name="region">
+                                <option value="">Seleccione Región</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="comuna">Comuna</label>
+                            <select id="comuna" name="comuna">
+                                <option value="">Seleccione Comuna</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="direccion">Dirección *</label>
+                        <input type="text" id="direccion" name="direccion" maxlength="300" placeholder="Ej: Av. Concha y Toro 123" required>
+                        <span class="error-message" id="error-direccion"></span>
+                    </div>
+
+                    <button type="submit" class="btn-primary form-btn">Registrar Usuario</button>                </form>
 
             </div>
         </section>

@@ -468,3 +468,73 @@ img {
 
 .action-delete { color: #d32f2f; }
 .action-delete:hover { color: #b71c1c; text-decoration: underline; }
+
+
+.form-card {
+    background: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+/* Clases nuevas para poner dos campos en la misma fila */
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+/* Agrupamos input y select para que compartan el mismo diseño */
+.form-group input,
+.form-group select {
+    padding: 0.7rem;
+    border: 1px solid #ffcc80;
+    border-radius: 6px;
+    outline: none;
+    font-size: 0.95rem;
+    width: 100%;
+    background-color: #fff;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(230, 81, 0, 0.1); /* Pequeño resplandor al hacer clic */
+}
+
+/* Para los mensajes de error de JavaScript (que usaremos luego) */
+.error-message {
+    color: #ef4444;
+    font-size: 0.8rem;
+    margin-top: 0.4rem;
+    display: none; /* Se ocultan por defecto hasta que JS los active */
+    font-weight: 500;
+}
+
+/* Ajuste del botón dentro del formulario */
+.form-btn {
+    width: 100%;
+    margin-top: 1rem;
+    cursor: pointer;
+    border: none;
+    font-size: 1.05rem;
+    padding: 0.8rem;
+}
