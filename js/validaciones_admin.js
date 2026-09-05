@@ -65,3 +65,72 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+
+    // VALIDACIÓN FORMULARIO: NUEVO PRODUCTO
+    let formNuevoProducto = document.getElementById("form-nuevo-producto");
+
+    if (formNuevoProducto) {
+        
+        formNuevoProducto.addEventListener("submit", function(evento) {
+            evento.preventDefault(); // Frenamos la recarga
+            
+            let formularioValido = true;
+
+            // VALIDACIÓN 1: CÓDIGO DEL PRODUCTO
+            let inputCodigo = document.getElementById("codigo");
+            let errorCodigo = document.getElementById("error-codigo");
+            let valorCodigo = inputCodigo.value.trim();
+
+            if (valorCodigo === "") {
+                errorCodigo.textContent = "El código no puede estar vacío.";
+                errorCodigo.style.display = "block";
+                formularioValido = false;
+            } else if (valorCodigo.length < 3) {
+                errorCodigo.textContent = "El código debe tener al menos 3 caracteres.";
+                errorCodigo.style.display = "block";
+                formularioValido = false;
+            } else {
+                errorCodigo.style.display = "none";
+            }
+
+            // VALIDACIÓN 2: PRECIO
+            let inputPrecio = document.getElementById("precio");
+            let errorPrecio = document.getElementById("error-precio");
+            let valorPrecio = inputPrecio.value;
+
+            if (valorPrecio === "") {
+                errorPrecio.textContent = "El precio es obligatorio.";
+                errorPrecio.style.display = "block";
+                formularioValido = false;
+            } else if (Number(valorPrecio) < 0) {
+                errorPrecio.textContent = "El precio no puede ser un número negativo.";
+                errorPrecio.style.display = "block";
+                formularioValido = false;
+            } else {
+                errorPrecio.style.display = "none";
+            }
+
+            // VALIDACIÓN 3: STOCK
+            let inputStock = document.getElementById("stock");
+            let errorStock = document.getElementById("error-stock");
+            let valorStock = inputStock.value;
+
+            if (valorStock === "") {
+                errorStock.textContent = "El stock es obligatorio.";
+                errorStock.style.display = "block";
+                formularioValido = false;
+            } else if (Number(valorStock) < 0) {
+                errorStock.textContent = "El stock no puede ser negativo.";
+                errorStock.style.display = "block";
+                formularioValido = false;
+            } else {
+                errorStock.style.display = "none";
+            }
+
+            // RESULTADO FINAL
+            if (formularioValido === true) {
+                alert("¡Producto registrado exitosamente!");
+                formNuevoProducto.reset(); // Limpiamos el formulario
+            }
+        });
+    }
