@@ -1,11 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Editar Producto - Admin</title>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
-    
+<body class="admin-layout">
+
+    <aside class="admin-sidebar">
+        <header class="sidebar-header">
+            <h2>🍔 FoodStore Admin</h2>
+        </header>
+        
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="index.html">🏠 Dashboard</a></li>
+                
+                <li class="nav-category">Gestión de Productos</li>
+                <!-- Mantenemos activo 'Listar Productos' porque venimos de ahí -->
+                <li><a href="mostrar_productos.html" class="active">📦 Listar Productos</a></li>
+                <li><a href="nuevo_producto.html">➕ Nuevo Producto</a></li>
+                
+                <li class="nav-category">Gestión de Usuarios</li>
+                <li><a href="mostrar_usuarios.html">👥 Listar Usuarios</a></li>
+                <li><a href="nuevo_usuario.html">➕ Nuevo Usuario</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="admin-main">
+        
+        <header class="admin-header">
+            <h1>Editar Producto</h1>
+        </header>
+
+        <section class="dashboard-content">
+            <div class="form-card" style="margin: 0 auto;">
+                <h2 style="color: var(--primary-color); margin-bottom: 1.5rem; text-align: center;">Modificar Detalles</h2>
+                
+                <form id="form-editar-producto">
+                    <div class="form-group">
+                        <label for="codigo">Código del Producto *</label>
+                        <!-- value precargado y readonly para que no le cambien el código -->
+                        <input type="text" id="codigo" name="codigo" minlength="3" value="P001" readonly required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombre">Nombre del Producto *</label>
+                        <input type="text" id="nombre" name="nombre" maxlength="100" value="Pizza Pepperoni" required>
+                        <span class="error-message" id="error-nombre"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="precio">Precio *</label>
+                            <input type="number" id="precio" name="precio" min="0" step="any" value="9990" required>
+                            <span class="error-message" id="error-precio"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="stock">Stock *</label>
+                            <input type="number" id="stock" name="stock" min="0" step="1" value="50" required>
+                            <span class="error-message" id="error-stock"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoria">Categoría *</label>
+                        <select id="categoria" name="categoria" required>
+                            <option value="">Seleccione una categoría</option>
+                            <option value="pizzas" selected>Pizzas y Hamburguesas</option>
+                            <option value="saludable">Opción Saludable</option>
+                            <option value="postres">Postres</option>
+                            <option value="bebidas">Bebidas y Batidos</option>
+                        </select>
+                        <span class="error-message" id="error-categoria"></span>
+                    </div>
+
+                    <button type="submit" class="btn-primary form-btn">Actualizar Producto</button>
+                </form>
+
+            </div>
+        </section>
+
+    </main>
 </body>
 </html>
