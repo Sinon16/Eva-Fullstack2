@@ -29,17 +29,19 @@
         </nav>
     </aside>
     <main class="admin-main">
-        
+        <button id="btn-menu" class="btn-menu-movil">☰ Menú</button>
+
         <header class="admin-header">
             <h1>Agregar Nuevo Usuario</h1>
         </header>
+        
 
         <section class="dashboard-content">
             <div class="form-card" style="margin: 0 auto; max-width: 600px;">
                 <h2 style="color: var(--primary-color); margin-bottom: 1.5rem; text-align: center;">Datos del Usuario</h2>
                 
                 <form id="form-nuevo-usuario">
-<div class="form-group">
+            <div class="form-group">
                         <label for="run">RUN (Sin puntos ni guion) *</label>
                         <input type="text" id="run" name="run" minlength="7" maxlength="9" placeholder="Ej: 19011022K" required>
                         <span class="error-message" id="error-run"></span>

@@ -1,7 +1,7 @@
 :root {
-    --primary-color: #e65100;     
-    --primary-hover: #bf360c;     
-    --header-bg: #fff3e0;         
+    --primary-color: #e65100;    
+    --primary-hover: #bf360c;    
+    --header-bg: #fff3e0;        
     --text-color: #2e2620;        
     --link-color: #d84315;       
     --accent-green: #2e7d32;     
@@ -23,7 +23,6 @@ body {
     flex-direction: column;
     min-height: 100vh;
 }
-
 
 .main-header {
     background: var(--header-bg);
@@ -92,7 +91,6 @@ body {
     background-color: #1b5e20;
 }
 
-
 .user-subbar {
     display: flex;
     justify-content: flex-end;
@@ -118,7 +116,6 @@ body {
     text-decoration: underline;
 }
 
-
 .main-container {
     display: flex;
     max-width: 1100px;
@@ -127,7 +124,6 @@ body {
     gap: 2rem;
     flex: 1;
 }
-
 
 .sidebar {
     width: 240px;
@@ -169,7 +165,6 @@ body {
     color: var(--primary-color);
 }
 
-
 .main-content {
     flex: 1;
 }
@@ -208,7 +203,6 @@ body {
 .btn-primary:hover {
     background-color: var(--primary-hover);
 }
-
 
 .main-footer {
     text-align: center;
@@ -273,8 +267,6 @@ img {
         display: none;
     }
 }
-
-
 
 /* ESTILOS DEL PANEL DE ADMINISTRADOR*/
 
@@ -398,8 +390,7 @@ img {
 }
 .success-stat .stat-number { color: var(--accent-green); }
 
-/* 
-   ESTILOS DE LAS TABLAS (PRODUCTOS Y USUARIOS) */
+/* ESTILOS DE LAS TABLAS (PRODUCTOS Y USUARIOS) */
 
 /* Espaciado para que la tabla no toque los bordes de la pantalla */
 .admin-main {
@@ -468,7 +459,6 @@ img {
 
 .action-delete { color: #d32f2f; }
 .action-delete:hover { color: #b71c1c; text-decoration: underline; }
-
 
 .form-card {
     background: var(--card-bg);
@@ -539,7 +529,7 @@ img {
     padding: 0.8rem;
 }
 
-AJUSTES PARA EL PLUGIN DATATABLES
+/* AJUSTES PARA EL PLUGIN DATATABLES */
 .dataTables_wrapper {
     margin-top: 20px;
     font-size: 0.95rem;
@@ -558,34 +548,76 @@ AJUSTES PARA EL PLUGIN DATATABLES
     border-color: var(--primary-color);
 }
 
-   DISEÑO RESPONSIVO (MÓVILES Y TABLETS) - PANEL ADMIN
-@media (max-width: 768px) {
+/* =========================================
+   DISEÑO RESPONSIVO Y MENÚ HAMBURGUESA
+   ========================================= */
+
+/* Escondemos el botón en computadores */
+.btn-menu-movil {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
     .admin-layout {
-        flex-direction: column;
+        display: flex !important;
+        flex-direction: column !important;
     }
+
+    /* 1. Botón hamburguesa visible en celulares */
+    .btn-menu-movil {
+        display: inline-block !important;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        font-size: 1.2rem;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-bottom: 15px;
+        width: fit-content;
+        font-weight: bold;
+    }
+
+    /* 2. Menú lateral escondido a la izquierda (-100%) */
     .admin-sidebar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 2px solid #e0e0e0;
+        position: fixed !important;
+        top: 0;
+        left: -100% !important; 
+        width: 260px !important;
+        height: 100vh !important;
+        z-index: 9999 !important;
+        transition: left 0.3s ease !important; /* Animación suave */
+        box-shadow: 4px 0 10px rgba(0,0,0,0.2) !important;
     }
-    .admin-main, .dashboard-content {
-        padding: 1rem;
+
+    /* 3. Clase dinámica que el JavaScript le agregará para mostrarlo */
+    .admin-sidebar.mostrar {
+        left: 0 !important;
+    }
+
+    /* 4. Arreglo del espacio del contenido principal */
+    .admin-main {
+        padding: 1.5rem !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .form-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 1.5rem !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    .form-row {
+        flex-direction: column !important;
+        gap: 0 !important;
     }
 
     .top-header, .admin-header {
-        flex-direction: column;
-        text-align: center;
-        gap: 1rem;
-    }
-    .form-row {
-        flex-direction: column;
-        gap: 0;
-    }
-    .stat-card {
-        width: 100%;
-    }
-    
-    .form-card {
-        padding: 1.5rem;
+        flex-direction: column !important;
+        text-align: center !important;
+        gap: 1rem !important;
     }
 }

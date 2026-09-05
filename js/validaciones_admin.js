@@ -1,8 +1,9 @@
 // Esperamos a que todo el HTML cargue antes de ejecutar el script
 document.addEventListener("DOMContentLoaded", function() {
     
+    // =========================================================================
     // 1. LÓGICA PARA EL FORMULARIO DE NUEVO USUARIO
-    // (Aplica tanto para Nuevo como para Editar usando el ||)
+    // =========================================================================
     let formNuevoUsuario = document.getElementById("form-nuevo-usuario") || document.getElementById("form-editar-usuario");
 
     if (formNuevoUsuario) {
@@ -55,8 +56,9 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // =========================================================================
     // 2. LÓGICA PARA EL FORMULARIO DE NUEVO PRODUCTO
-    // (Aplica tanto para Nuevo como para Editar usando el ||)
+    // =========================================================================
     let formNuevoProducto = document.getElementById("form-nuevo-producto") || document.getElementById("form-editar-producto");
 
     if (formNuevoProducto) {
@@ -121,4 +123,18 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
+
+    // =========================================================================
+    // 3. LÓGICA PARA EL MENÚ HAMBURGUESA (MÓVILES)
+    // =========================================================================
+    let btnMenu = document.getElementById("btn-menu");
+    let sidebar = document.querySelector(".admin-sidebar");
+
+    if (btnMenu && sidebar) {
+        btnMenu.addEventListener("click", function() {
+            // Activa o desactiva la clase "mostrar" para deslizar el menú
+            sidebar.classList.toggle("mostrar");
+        });
+    }
+
 });
