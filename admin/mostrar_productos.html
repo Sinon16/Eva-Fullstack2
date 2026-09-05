@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventario de Productos - Admin</title>
-    <!-- Referencia relativa correcta a tu CSS externo -->
     <link rel="stylesheet" href="../css/style.css">
+    <!-- CSS de DataTables (Vía CDN) -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 </head>
 <body class="admin-layout">
 
-    <!-- Menú Lateral -->
     <aside class="admin-sidebar">
         <header class="sidebar-header">
             <h2>🍔 FoodStore Admin</h2>
@@ -20,7 +20,6 @@
                 <li><a href="index.html">🏠 Dashboard</a></li>
                 
                 <li class="nav-category">Gestión de Productos</li>
-                <!-- Esta página está activa -->
                 <li><a href="mostrar_productos.html" class="active">📦 Listar Productos</a></li>
                 <li><a href="nuevo_producto.html">➕ Nuevo Producto</a></li>
                 
@@ -31,17 +30,16 @@
         </nav>
     </aside>
 
-    <!-- Contenido Principal -->
     <main class="admin-main">
         
         <header class="admin-header">
             <h1>Inventario de Productos</h1>
-            <!-- Botón para ir al formulario de nuevo producto -->
             <a href="nuevo_producto.html" class="btn-primary">+ Agregar Producto</a>
         </header>
 
         <section class="table-container">
-            <table class="admin-table">
+            <!-- Agregamos el ID "tabla-productos" para que DataTables lo encuentre más fácil -->
+            <table id="tabla-productos" class="admin-table">
                 <thead>
                     <tr>
                         <th>Código</th>
@@ -80,7 +78,6 @@
                         <td>Bowl Proteico</td>
                         <td>Opción Saludable</td>
                         <td>$7.200</td>
-                        <!-- Reutilizamos la clase del botón eliminar para darle el color rojo de alerta -->
                         <td class="action-delete" style="font-weight: bold;">2 (Crítico)</td>
                         <td>
                             <a href="editar_producto.html" class="action-link action-edit">Editar</a>
@@ -93,5 +90,19 @@
         
     </main>
 
+    <!-- jQuery y JS de DataTables (Vía CDN) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    
+    <!-- Script para inicializar la tabla en Español -->
+    <script>
+        $(document).ready(function() {
+            $('#tabla-productos').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+                }
+            });
+        });
+    </script>
 </body>
 </html>

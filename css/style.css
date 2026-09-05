@@ -538,3 +538,22 @@ img {
     font-size: 1.05rem;
     padding: 0.8rem;
 }
+
+AJUSTES PARA EL PLUGIN DATATABLES
+.dataTables_wrapper {
+    margin-top: 20px;
+    font-size: 0.95rem;
+}
+
+.dataTables_wrapper select, 
+.dataTables_wrapper input {
+    border: 1px solid #ffcc80;
+    border-radius: 6px;
+    padding: 4px;
+    outline: none;
+}
+
+.dataTables_wrapper select:focus, 
+.dataTables_wrapper input:focus {
+    border-color: var(--primary-color);
+}
