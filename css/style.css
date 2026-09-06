@@ -116,22 +116,43 @@ body {
     text-decoration: underline;
 }
 
-.main-container {
+/* --- CONTENEDOR FLEXBOX EN 2 COLUMNAS --- */
+.container {
     display: flex;
-    max-width: 1100px;
-    width: 90%;
+    max-width: 1200px;
+    width: 92%;
     margin: 2rem auto;
     gap: 2rem;
-    flex: 1;
+    align-items: flex-start; /* Hace que ambas columnas inicien juntas en la parte superior */
 }
 
+/* Sidebar a la izquierda con tamaño fijo */
 .sidebar {
     width: 240px;
+    min-width: 240px;
     background: var(--card-bg);
     padding: 1.2rem;
     border-radius: 12px;
     border: 1px solid #f0e6df;
     height: fit-content;
+}
+
+/* Área de contenido a la derecha */
+.main-content {
+    flex: 1;
+    min-width: 0; /* Previene desbordamientos en resoluciones intermedias */
+}
+
+.main-content h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.2rem;
+}
+
+/* Grilla de productos (Tarjetas organizadas a la derecha) */
+.productos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
 }
 
 .sidebar h3 {
@@ -187,6 +208,14 @@ body {
 .hero-banner p {
     color: #5d4037;
     margin-bottom: 1.5rem;
+}
+
+.hero-banner img {
+    width: 100%;             /* Ocupa todo el ancho de la tarjeta */
+    height: 200px;           /* Define una altura fija (ajusta los píxeles a tu gusto) */
+    object-fit: cover;       /* Recorta la imagen para llenar el área sin deformar la proporción */
+    object-position: center; /* Centra el recorte del contenido de la foto */
+    border-radius: 8px;      /* Opcional: bordes ligeramente redondeados */
 }
 
 .btn-primary {

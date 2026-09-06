@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    
 
     <header class="main-header">
         <div class="logo">
@@ -16,9 +17,9 @@
         
         <nav class="navbar">
             <ul>
-                <li><a href="index.html" class="active">Inicio</a></li>
+                <li><a href="index.html">Inicio</a></li>
                 <li class="separator">|</li>
-                <li><a href="productos.html">Menú</a></li>
+                <li><a href="productos.html" class="active">Menú</a></li>
                 <li class="separator">|</li>
                 <li><a href="nosotros.html">Nosotros</a></li>
                 <li class="separator">|</li>
@@ -42,73 +43,30 @@
     </div>
 
     <div class="container">
-        <main class="main-content">
-            <h2>Nuestro Menú Gastronómico</h2>
-            
-            <div class="productos-grid">
-                
-                <article class="hero-banner">
-                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400" alt="Hamburguesa Clásica">
-                    <h3>Hamburguesa Artesanal</h3>
-                    <p>Carne de res de 200g, queso cheddar fundido, tocino crujiente y salsa de la casa.</p>
-                    <p class="precio">$12.50</p>
-                    <button class="btn-primary">Agregar al Pedido</button>
-                    id=descripcion contdahaskdjasda
-                </article>
 
-                <!-- Platillo 2 -->
-                <article class="hero-banner">
-                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400" alt="Pizza Pepperoni">
-                    <h3>Pizza Pepperoni Especial</h3>
-                    <p>Masa madre crujiente, abundante queso mozzarella y pepperoni de primera calidad.</p>
-                    <p class="precio">$15.99</p>
-                    <button class="btn-primary">Agregar al Pedido</button>
-                </article>
+    <aside class="sidebar">
+        <h3>Categorías</h3>
+        <ul>
+            <li><a href="#" onclick="filtrar('todas')">🍽️ Todo</a></li>
+            <li><a href="#" onclick="filtrar('pizzas-hamburguesas')">🍕 Pizzas y Hamburguesas</a></li>
+            <li><a href="#" onclick="filtrar('saludable')">🥗 Opción Saludable</a></li>
+            <li><a href="#" onclick="filtrar('postres')">🍰 Postres</a></li>
+            <li><a href="#" onclick="filtrar('bebidas')">🥤 Bebidas</a></li>
+            <li><a href="#" onclick="filtrar('ofertas')">🔥 Ofertas</a></li>
+        </ul>
+    </aside>
 
-                <!-- Platillo 3 -->
-                <article class="hero-banner">
-                    <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400" alt="Ensalada César">
-                    <h3>Ensalada César con Pollo</h3>
-                    <p>Lechuga fresca, tiras de pollo a la parrilla, crutones y aderezo césar tradicional.</p>
-                    <p class="precio">$9.50</p>
-                    <button class="btn-primary">Agregar al Pedido</button>
-                </article>
 
-                <!-- Platillo 4 -->
-                <article class="hero-banner">
-                    <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400" alt="Postre Brownie">
-                    <h3>Brownie con Helado</h3>
-                    <p>Brownie de chocolate caliente servido con una bola de helado de vainilla.</p>
-                    <p class="precio">$6.00</p>
-                    <button class="btn-primary">Agregar al Pedido</button>
-                </article>
-
-                <!-- Platillo 5 -->
-                <article class="hero-banner">
-                    <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400" alt="Batido de Frutas">
-                    <h3>Batido Tropical</h3>
-                    <p>Mezcla natural de mango, maracuyá y fresas frescas exprimidas al momento.</p>
-                    <p class="precio">$4.50</p>
-                    <button class="btn-primary">Agregar al Pedido</button>
-                </article>
-
-                <!-- Platillo 6 -->
-                <article class="hero-banner">
-                    <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400" alt="Tacos al Pastor">
-                    <h3>Tacos al Pastor</h3>
-                    <p>Tortillas de maíz con carne adobada, piña fresca, cilantro y cebolla picada.</p>
-                    <p class="precio">$10.00</p>
-                    <button class="btn-primary">Agregar al Pedido</button>
-                </article>
-
-            </div>
-        </main>
-    </div>
+    <main class="main-content">
+        <h2>Nuestro Menú Gastronómico</h2>
+        <div class="productos-grid" id="contenedor-productos"></div>
+    </main>
+</div>
 
     <footer class="main-footer">
         <p>&copy; 2026 Sabor & Aroma - Comida Real, Sabor Auténtico</p>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script src="js/producto.js"></script>
 </body>
 </html>
