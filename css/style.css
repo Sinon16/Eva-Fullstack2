@@ -297,6 +297,84 @@ img {
     }
 }
 
+/* --- ESTILOS NATIVOS PARA LA PÁGINA NOSOTROS --- */
+
+/* Misión y Visión a dos columnas */
+.grid-dos-columnas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.tarjeta-nosotros {
+    background: linear-gradient(135deg, #ffe0b2 0%, #fff3e0 100%);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #ffcc80;
+    text-align: center;
+}
+
+.tarjeta-nosotros h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.tarjeta-nosotros p {
+    color: #5d4037;
+    line-height: 1.5;
+}
+
+/* Sección de Valores a tres columnas */
+.seccion-valores {
+    background: linear-gradient(135deg, #ffe0b2 0%, #fff3e0 100%);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #ffcc80;
+    text-align: center;
+}
+
+.seccion-valores h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
+}
+
+.grid-tres-columnas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.2rem;
+}
+
+.tarjeta-valor {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    border: 1px solid #f0e6df;
+}
+
+.tarjeta-valor h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.tarjeta-valor p {
+    color: var(--text-color);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Adaptación responsive */
+@media (max-width: 768px) {
+    .grid-dos-columnas,
+    .grid-tres-columnas {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* ESTILOS DEL PANEL DE ADMINISTRADOR*/
 
 /* 1. Layout Base (Flexbox) */

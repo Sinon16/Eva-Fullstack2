@@ -46,4 +46,17 @@ function filtrar(cat) {
 }
 
 
-window.onload = () => mostrarProductos(productos);
+// Detecta la categoría de la URL al cargar la página
+window.onload = () => {
+    // Obtiene los parámetros de la URL actual
+    const params = new URLSearchParams(window.location.search);
+    const categoriaURL = params.get("cat");
+
+    if (categoriaURL) {
+        // Si viene un parámetro ?cat=..., filtra automáticamente
+        filtrar(categoriaURL);
+    } else {
+        // Si se entra directo a productos.html, muestra todo
+        mostrarProductos(productos);
+    }
+};
