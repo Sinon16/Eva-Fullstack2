@@ -50,7 +50,16 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             if (formularioValido === true) {
-                alert("¡Usuario guardado correctamente!");
+                // GUARDADO DE USUARIO EN MEMORIA
+                let nuevoUsuario = {
+                    nombre: document.getElementById("nombreUsuario").value + " " + document.getElementById("apellidos").value,
+                    email: valorCorreo,
+                    password: "1234", 
+                    esAdmin: document.getElementById("rol").value === "Administrador"
+                };
+                localStorage.setItem("usuarioRegistrado", JSON.stringify(nuevoUsuario));
+                
+                alert("¡Usuario guardado correctamente en la memoria!");
                 formNuevoUsuario.reset();
             }
         });
@@ -117,9 +126,58 @@ document.addEventListener("DOMContentLoaded", function() {
                 errorStock.style.display = "none";
             }
 
+            // SI TODO ESTÁ BIEN, GUARDAMOS EN LA MEMORIA CON EL TRUCO NINJA
             if (formularioValido === true) {
-                alert("¡Producto registrado exitosamente!");
-                formNuevoProducto.reset();
+                // Capturamos el archivo de imagen si el usuario subió uno
+                let inputImagen = document.getElementById("imagen");
+                let archivo = inputImagen ? inputImagen.files[0] : null;
+
+                // Función interna para guardar (se ejecutará con o sin imagen)
+                const guardarDatos = (rutaImagen) => {
+                    let listaProductos = JSON.parse(localStorage.getItem("productosTienda")) || [];
+                    
+                    let datosProducto = {
+                        id: Date.now(),
+                        codigo: valorCodigo,
+                        nombre: document.getElementById("nombre").value,
+                        precio: Number(valorPrecio),
+                        categoria: document.getElementById("categoria").value,
+                        imagen: rutaImagen
+                    };
+
+                    let esEdicion = document.getElementById("codigo").hasAttribute("readonly");
+
+                    if (esEdicion) {
+                        let index = listaProductos.findIndex(p => p.codigo === valorCodigo);
+                        if (index !== -1) {
+                            // Si editamos y NO subimos foto nueva, mantenemos la foto original
+                            if (!archivo && listaProductos[index].imagen) {
+                                datosProducto.imagen = listaProductos[index].imagen;
+                            }
+                            listaProductos[index] = datosProducto;
+                        }
+                        alert("¡Producto modificado y actualizado en la tienda!");
+                    } else {
+                        listaProductos.push(datosProducto);
+                        alert("¡Producto nuevo guardado y enviado a la tienda!");
+                        formNuevoProducto.reset(); 
+                    }
+
+                    localStorage.setItem("productosTienda", JSON.stringify(listaProductos));
+                };
+
+                // Magia Frontend: Si hay archivo, lo convertimos a texto (Base64) para el localStorage
+                if (archivo) {
+                    let lector = new FileReader();
+                    lector.onload = function(eventoLectura) {
+                        let imagenBase64 = eventoLectura.target.result;
+                        guardarDatos(imagenBase64); // Guardamos con la imagen transformada
+                    };
+                    lector.readAsDataURL(archivo);
+                } else {
+                    // Si no subió foto, usamos la hamburguesa por defecto
+                    guardarDatos("../img/hamburguesa-index.webp");
+                }
             }
         });
     }
@@ -132,7 +190,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (btnMenu && sidebar) {
         btnMenu.addEventListener("click", function() {
-            // Activa o desactiva la clase "mostrar" para deslizar el menú
             sidebar.classList.toggle("mostrar");
         });
     }

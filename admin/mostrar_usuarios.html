@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Usuarios - Admin</title>
-    <!-- Referencia relativa a tu archivo CSS único -->
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 </head>
 <body class="admin-layout">
 
-    <!-- Menú Lateral (Sidebar) -->
     <aside class="admin-sidebar">
          <div class="logo">
             <span class="logo-icon">🍔</span>
@@ -25,24 +24,21 @@
                 <li><a href="nuevo_producto.html">➕ Nuevo Producto</a></li>
                 
                 <li class="nav-category">Gestión de Usuarios</li>
-                <!-- Esta página es la activa ahora -->
                 <li><a href="mostrar_usuarios.html" class="active">👥 Listar Usuarios</a></li>
                 <li><a href="nuevo_usuario.html">➕ Nuevo Usuario</a></li>
             </ul>
         </nav>
     </aside>
 
-    <!-- Contenido Principal -->
     <main class="admin-main">
         <button id="btn-menu" class="btn-menu-movil">☰ Menú</button>
         <header class="admin-header">
             <h1>Gestión de Usuarios</h1>
-            <!-- Botón para ir al formulario de nuevo usuario -->
             <a href="nuevo_usuario.html" class="btn-primary">+ Agregar Usuario</a>
         </header>
 
         <section class="table-container">
-            <table class="admin-table">
+            <table id="tabla-usuarios" class="admin-table">
                 <thead>
                     <tr>
                         <th>RUN</th>
@@ -52,47 +48,61 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>19011022-K</strong></td>
-                        <td>Juan Pérez</td>
-                        <td>juan@duoc.cl</td>
-                        <td class="badge-admin">Administrador</td>
-                        <td>
-                            <a href="editar_usuario.html" class="action-link action-edit">Editar</a>
-                            <a href="#" class="action-link action-delete">Eliminar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong>20123456-7</strong></td>
-                        <td>María González</td>
-                        <td>maria@gmail.com</td>
-                        <td class="badge-cliente">Cliente</td>
-                        <td>
-                            <a href="editar_usuario.html" class="action-link action-edit">Editar</a>
-                            <a href="#" class="action-link action-delete">Eliminar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong>18765432-1</strong></td>
-                        <td>Carlos Rojas</td>
-                        <td>crojas@profesor.duoc.cl</td>
-                        <td class="badge-vendedor">Vendedor</td>
-                        <td>
-                            <a href="editar_usuario.html" class="action-link action-edit">Editar</a>
-                            <a href="#" class="action-link action-delete">Eliminar</a>
-                        </td>
-                    </tr>
+                <tbody id="body-usuarios">
+                    
                 </tbody>
             </table>
         </section>
         
     </main>
+    
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    
     <script>
         $(document).ready(function() {
-            $('.admin-table').DataTable();
+            let tbody = document.getElementById("body-usuarios");
+            let usuariosParaMostrar = [];
+
+            const usuariosPredefinidos = [
+                { nombre: "Usuario Gmail", email: "estudiante@gmail.com", esAdmin: false },
+                { nombre: "Alumno Duoc", email: "alumno@duoc.cl", esAdmin: false },
+                { nombre: "Profesor Duoc (Admin)", email: "profe@profesor.duoc.cl", esAdmin: true }
+            ];
+            
+            usuariosParaMostrar = usuariosParaMostrar.concat(usuariosPredefinidos);
+
+            let usuarioRegistrado = JSON.parse(localStorage.getItem("usuarioRegistrado"));
+            
+            if (usuarioRegistrado) {
+                usuariosParaMostrar.push(usuarioRegistrado);
+            }
+
+            usuariosParaMostrar.forEach((u, index) => {
+                let runFalso = u.run || `1${index}234567-K`; 
+                let rolTexto = u.esAdmin ? "Administrador" : "Cliente";
+                let claseRol = u.esAdmin ? "badge-admin" : "badge-cliente";
+
+                let fila = `
+                    <tr>
+                        <td><strong>${runFalso}</strong></td>
+                        <td>${u.nombre}</td>
+                        <td>${u.email}</td>
+                        <td class="${claseRol}">${rolTexto}</td>
+                        <td>
+                            <a href="editar_usuario.html" class="action-link action-edit">Editar</a>
+                            <a href="#" class="action-link action-delete">Eliminar</a>
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += fila;
+            });
+
+            $('#tabla-usuarios').DataTable({
+                "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+                }
+            });
         });
     </script>
     <script src="../js/validaciones_admin.js"></script>

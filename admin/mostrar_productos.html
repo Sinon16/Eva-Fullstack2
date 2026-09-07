@@ -39,7 +39,6 @@
         </header>
 
         <section class="table-container">
-            <!-- Agregamos el ID "tabla-productos" para que DataTables lo encuentre más fácil -->
             <table id="tabla-productos" class="admin-table">
                 <thead>
                     <tr>
@@ -51,61 +50,50 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>P001</strong></td>
-                        <td>Pizza Pepperoni</td>
-                        <td>Pizzas y Hamburguesas</td>
-                        <td>$9.990</td>
-                        <td class="badge-vendedor">50</td>
-                        <td>
-                            <a href="editar_producto.html" class="action-link action-edit">Editar</a>
-                            <a href="#" class="action-link action-delete">Eliminar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong>P002</strong></td>
-                        <td>Hamburguesa Clásica</td>
-                        <td>Pizzas y Hamburguesas</td>
-                        <td>$6.500</td>
-                        <td class="badge-vendedor">12</td>
-                        <td>
-                            <a href="editar_producto.html" class="action-link action-edit">Editar</a>
-                            <a href="#" class="action-link action-delete">Eliminar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><strong>P003</strong></td>
-                        <td>Bowl Proteico</td>
-                        <td>Opción Saludable</td>
-                        <td>$7.200</td>
-                        <td class="action-delete" style="font-weight: bold;">2 (Crítico)</td>
-                        <td>
-                            <a href="editar_producto.html" class="action-link action-edit">Editar</a>
-                            <a href="#" class="action-link action-delete">Eliminar</a>
-                        </td>
-                    </tr>
+                <!-- Dejamos el cuerpo de la tabla vacío para que JS lo llene -->
+                <tbody id="body-productos">
+                    
                 </tbody>
             </table>
         </section>
         
     </main>
-
-    <!-- jQuery y JS de DataTables (Vía CDN) -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     
-    <!-- Script para inicializar la tabla en Español -->
+    <!-- Script para leer la memoria e inicializar la tabla en Español -->
     <script>
         $(document).ready(function() {
+            // 1. Buscamos los productos en la libreta (memoria del navegador)
+            let productosMemoria = JSON.parse(localStorage.getItem("productosTienda")) || [];
+            let tbody = document.getElementById("body-productos");
+            
+            // 2. Por cada producto guardado, creamos una fila en la tabla
+            productosMemoria.forEach(p => {
+                let fila = `
+                    <tr>
+                        <td><strong>${p.codigo || 'N/A'}</strong></td>
+                        <td>${p.nombre}</td>
+                        <td>${p.categoria}</td>
+                        <td>$${p.precio}</td>
+                        <td class="badge-vendedor">Disponible</td>
+                        <td>
+                            <a href="editar_producto.html" class="action-link action-edit">Editar</a>
+                            <a href="#" class="action-link action-delete">Eliminar</a>
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += fila;
+            });
+
+            // 3. Recién AHORA que la tabla tiene datos, encendemos el plugin DataTables
             $('#tabla-productos').DataTable({
                 "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+                    "url": "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
                 }
             });
         });
     </script>
     <script src="../js/validaciones_admin.js"></script>
-
 </body>
 </html>

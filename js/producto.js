@@ -1,17 +1,27 @@
-const productos = [
-    { id: 1, nombre: "Hamburguesa Artesanal", categoria: "pizzas-hamburguesas", descripcion: "Carne de res de 200g, queso cheddar fundido y tocino.", precio: 11990, imagen: "img/hamburguesa-index.webp" },
-    { id: 2, nombre: "Pizza Pepperoni Especial", categoria: "pizzas-hamburguesas", descripcion: "Masa madre, queso mozzarella y abundante pepperoni.", precio: 14990, imagen: "img/pizza-pepperoni.jpg" },
-    { id: 3, nombre: "Ensalada César con Pollo", categoria: "saludable", descripcion: "Lechuga fresca, pollo a la parrilla y aderezo césar.", precio: 8990, imagen: "img/ceasar-index.jpg" },
-    { id: 4, nombre: "Brownie con Helado", categoria: "postres", descripcion: "Brownie de chocolate servido con helado de vainilla.", precio: 5990, imagen: "img/brownie-helado.jpg" },
-    { id: 5, nombre: "Batido Tropical", categoria: "bebidas", descripcion: "Mezcla natural de mango, maracuyá y fresas.", precio: 4290, imagen: "img/batido-tropical.jpg" },
-    { id: 6, nombre: "Tacos al Pastor", categoria: "ofertas", descripcion: "Tortillas de maíz con carne adobada y piña.", precio: 9490, imagen: "img/Tacos-Al-Pastor.jpg" },
-    { id: 7, nombre: "Lasaña Bolognesa", categoria: "pizzas-hamburguesas", descripcion: "Capas de pasta con boloñesa y queso gratinado.", precio: 12990, imagen: "img/lasaña-boloñesa.jpg" },
-    { id: 8, nombre: "Sushi Roll California", categoria: "saludable", descripcion: "Rollos de cangrejo o salmon, palta, pepino y ajonjolí.", precio: 13490, imagen: "img/sushi-index.jpg" },
-    { id: 9, nombre: "Club Sándwich Doble", categoria: "ofertas", descripcion: "Pan tostado con pavo, queso y papas fritas.", precio: 7990, imagen: "img/club-sandwich-doble.png" },
-    { id: 10, nombre: "Alitas BBQ (8 Piezas)", categoria: "ofertas", descripcion: "Alitas crujientes bañadas en salsa BBQ.", precio: 10490, imagen: "img/alitas-bbq.webp" },
-    { id: 11, nombre: "Cheesecake de Frutos Rojos", categoria: "postres", descripcion: "Pastel de queso cremoso con mermelada.", precio: 5290, imagen: "img/Cheesecake de Frutos Rojos.jpg" },
-    { id: 12, nombre: "Café Cappuccino Frappé", categoria: "bebidas", descripcion: "Café licuado con hielo, leche y crema.", precio: 3890, imagen: "img/Café Cappuccino Frappé.jpg" }
-];
+// 1. Verificamos si es la primera vez que se carga la tienda en este navegador
+let inicializado = localStorage.getItem("tiendaInicializada");
+let productos = JSON.parse(localStorage.getItem("productosTienda")) || [];
+
+// 2. Si no está inicializado, cargamos los 12 productos base obligatoriamente
+if (!inicializado || productos.length === 0) {
+    productos = [
+        { id: 1, codigo: "P001", nombre: "Hamburguesa Artesanal", categoria: "pizzas-hamburguesas", descripcion: "Carne de res de 200g, queso cheddar fundido y tocino.", precio: 11990, imagen: "img/hamburguesa-index.webp" },
+        { id: 2, codigo: "P002", nombre: "Pizza Pepperoni Especial", categoria: "pizzas-hamburguesas", descripcion: "Masa madre, queso mozzarella y abundante pepperoni.", precio: 14990, imagen: "img/pizza-pepperoni.jpg" },
+        { id: 3, codigo: "P003", nombre: "Ensalada César con Pollo", categoria: "saludable", descripcion: "Lechuga fresca, pollo a la parrilla y aderezo césar.", precio: 8990, imagen: "img/ceasar-index.jpg" },
+        { id: 4, codigo: "P004", nombre: "Brownie con Helado", categoria: "postres", descripcion: "Brownie de chocolate servido con helado de vainilla.", precio: 5990, imagen: "img/brownie-helado.jpg" },
+        { id: 5, codigo: "P005", nombre: "Batido Tropical", categoria: "bebidas", descripcion: "Mezcla natural de mango, maracuyá y fresas.", precio: 4290, imagen: "img/batido-tropical.jpg" },
+        { id: 6, codigo: "P006", nombre: "Tacos al Pastor", categoria: "ofertas", descripcion: "Tortillas de maíz con carne adobada y piña.", precio: 9490, imagen: "img/Tacos-Al-Pastor.jpg" },
+        { id: 7, codigo: "P007", nombre: "Lasaña Bolognesa", categoria: "pizzas-hamburguesas", descripcion: "Capas de pasta con boloñesa y queso gratinado.", precio: 12990, imagen: "img/lasaña-boloñesa.jpg" },
+        { id: 8, codigo: "P008", nombre: "Sushi Roll California", categoria: "saludable", descripcion: "Rollos de cangrejo o salmon, palta, pepino y ajonjolí.", precio: 13490, imagen: "img/sushi-index.jpg" },
+        { id: 9, codigo: "P009", nombre: "Club Sándwich Doble", categoria: "ofertas", descripcion: "Pan tostado con pavo, queso y papas fritas.", precio: 7990, imagen: "img/club-sandwich-doble.png" },
+        { id: 10, codigo: "P010", nombre: "Alitas BBQ (8 Piezas)", categoria: "ofertas", descripcion: "Alitas crujientes bañadas en salsa BBQ.", precio: 10490, imagen: "img/alitas-bbq.webp" },
+        { id: 11, codigo: "P011", nombre: "Cheesecake de Frutos Rojos", categoria: "postres", descripcion: "Pastel de queso cremoso con mermelada.", precio: 5290, imagen: "img/Cheesecake de Frutos Rojos.jpg" },
+        { id: 12, codigo: "P012", nombre: "Café Cappuccino Frappé", categoria: "bebidas", descripcion: "Café licuado con hielo, leche y crema.", precio: 3890, imagen: "img/Café Cappuccino Frappé.jpg" }
+    ];
+    // Guardamos en la libreta y marcamos como inicializado
+    localStorage.setItem("productosTienda", JSON.stringify(productos));
+    localStorage.setItem("tiendaInicializada", "true"); 
+}
 
 function mostrarProductos(lista) {
     const contenedor = document.getElementById("contenedor-productos");

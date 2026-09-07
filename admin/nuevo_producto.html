@@ -73,16 +73,25 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                   <div class="form-group">
                         <label for="categoria">Categoría *</label>
                         <select id="categoria" name="categoria" required>
                             <option value="">Seleccione una categoría</option>
-                            <option value="pizzas">Pizzas y Hamburguesas</option>
+                            <!-- CORRECCIÓN: Estos 'value' ahora son idénticos a los de la tienda -->
+                            <option value="pizzas-hamburguesas">Pizzas y Hamburguesas</option>
                             <option value="saludable">Opción Saludable</option>
                             <option value="postres">Postres</option>
                             <option value="bebidas">Bebidas y Batidos</option>
+                            <option value="ofertas">Ofertas</option>
                         </select>
                         <span class="error-message" id="error-categoria"></span>
+                    </div>
+
+                    <!-- NUEVO CAMPO: Subir Imagen -->
+                    <div class="form-group">
+                        <label for="imagen">Imagen del Producto (Opcional)</label>
+                        <input type="file" id="imagen" name="imagen" accept="image/*">
+                        <small style="color: #666;">Selecciona una foto desde tu computador.</small>
                     </div>
 
                     <button type="submit" class="btn-primary form-btn">Guardar Producto</button>
