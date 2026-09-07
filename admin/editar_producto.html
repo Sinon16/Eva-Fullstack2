@@ -8,6 +8,7 @@
 </head>
 <body class="admin-layout">
 
+    <aside class="admin-sidebar">
         <div class="logo">
             <span class="logo-icon">🍔</span>
             <h1>Sabor & Aroma</h1>
@@ -18,7 +19,6 @@
                 <li><a href="index.html">🏠 Dashboard</a></li>
                 
                 <li class="nav-category">Gestión de Productos</li>
-                <!-- Mantenemos activo 'Listar Productos' porque venimos de ahí -->
                 <li><a href="mostrar_productos.html" class="active">📦 Listar Productos</a></li>
                 <li><a href="nuevo_producto.html">➕ Nuevo Producto</a></li>
                 
@@ -42,34 +42,37 @@
                 <form id="form-editar-producto">
                     <div class="form-group">
                         <label for="codigo">Código del Producto *</label>
-                        <input type="text" id="codigo" name="codigo" minlength="3" value="P001" readonly required>
+                        <!-- AQUÍ ESTÁ LA CLAVE: El campo readonly -->
+                        
+                        <input type="text" id="codigo" name="codigo" minlength="3" readonly required>
+                        <span class="error-message" id="error-codigo"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="nombre">Nombre del Producto *</label>
-                        <input type="text" id="nombre" name="nombre" maxlength="100" value="Pizza Pepperoni" required>
+                        <input type="text" id="nombre" name="nombre" maxlength="100" required>
                         <span class="error-message" id="error-nombre"></span>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="precio">Precio *</label>
-                            <input type="number" id="precio" name="precio" min="0" step="any" value="9990" required>
+                            <input type="number" id="precio" name="precio" min="0" step="any" required>
                             <span class="error-message" id="error-precio"></span>
                         </div>
                         
                         <div class="form-group">
                             <label for="stock">Stock *</label>
-                            <input type="number" id="stock" name="stock" min="0" step="1" value="50" required>
+                            <!-- El stock inicializa en 0 si no lo tenemos en la bd del compañero -->
+                            <input type="number" id="stock" name="stock" min="0" step="1" value="0" required>
                             <span class="error-message" id="error-stock"></span>
                         </div>
                     </div>
 
-                   <div class="form-group">
+                    <div class="form-group">
                         <label for="categoria">Categoría *</label>
                         <select id="categoria" name="categoria" required>
                             <option value="">Seleccione una categoría</option>
-                            <!-- CORRECCIÓN: Estos 'value' ahora son idénticos a los de la tienda -->
                             <option value="pizzas-hamburguesas">Pizzas y Hamburguesas</option>
                             <option value="saludable">Opción Saludable</option>
                             <option value="postres">Postres</option>
@@ -79,21 +82,52 @@
                         <span class="error-message" id="error-categoria"></span>
                     </div>
 
-                    <!-- NUEVO CAMPO: Subir Imagen -->
+                    <!-- CAMPO: Subir Imagen para reemplazar la anterior -->
                     <div class="form-group">
-                        <label for="imagen">Imagen del Producto (Opcional)</label>
+                        <label for="imagen">Cambiar Imagen (Opcional)</label>
                         <input type="file" id="imagen" name="imagen" accept="image/*">
-                        <small style="color: #666;">Selecciona una foto desde tu computador.</small>
+                        <small style="color: #666;">Si no seleccionas nada, se mantendrá la foto actual.</small>
                     </div>
 
-                    <button type="submit" class="btn-primary form-btn">Guardar Producto</button>
+                    <button type="submit" class="btn-primary form-btn">Actualizar Producto</button>
                 </form>
 
             </div>
         </section>
 
     </main>
-    <script src="../js/validaciones_admin.js"></script>
 
+    <!-- Script para autocompletar el formulario -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 1. Obtener el código que viene en la URL
+            const parametros = new URLSearchParams(window.location.search);
+            const codigoFiltro = parametros.get("codigo");
+
+            // 2. Si hay un código, buscamos el producto en la memoria
+            if (codigoFiltro) {
+                let productosMemoria = JSON.parse(localStorage.getItem("productosTienda")) || [];
+                let productoEncontrado = productosMemoria.find(p => p.codigo === codigoFiltro);
+
+                if (productoEncontrado) {
+                    // 3. Rellenamos los campos del formulario con los datos reales
+                    document.getElementById("codigo").value = productoEncontrado.codigo;
+                    document.getElementById("nombre").value = productoEncontrado.nombre;
+                    document.getElementById("precio").value = productoEncontrado.precio;
+                    
+                    // Seleccionar la categoría correcta en el dropdown
+                    let selectCategoria = document.getElementById("categoria");
+                    if (selectCategoria && productoEncontrado.categoria) {
+                        selectCategoria.value = productoEncontrado.categoria;
+                    }
+                } else {
+                    alert("No se encontró el producto en la memoria.");
+                }
+            }
+        });
+    </script>
+
+    <!-- Cargamos tus validaciones -->
+    <script src="../js/validaciones_admin.js"></script>
 </body>
 </html>

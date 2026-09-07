@@ -11,46 +11,35 @@ document.addEventListener("DOMContentLoaded", function() {
             evento.preventDefault();
             let formularioValido = true;
 
-            // VALIDACIÓN RUN
             let inputRun = document.getElementById("run");
             let errorRun = document.getElementById("error-run");
-            let valorRun = inputRun.value.trim();
+            let valorRun = inputRun ? inputRun.value.trim() : "";
 
             if (valorRun === "") {
-                errorRun.textContent = "El campo RUN no puede estar vacío.";
-                errorRun.style.display = "block";
+                if(errorRun) { errorRun.textContent = "El campo RUN no puede estar vacío."; errorRun.style.display = "block"; }
                 formularioValido = false;
             } else if (valorRun.includes(".") || valorRun.includes("-")) {
-                errorRun.textContent = "El RUN debe ingresarse sin puntos ni guion.";
-                errorRun.style.display = "block";
+                if(errorRun) { errorRun.textContent = "El RUN debe ingresarse sin puntos ni guion."; errorRun.style.display = "block"; }
                 formularioValido = false;
             } else {
-                errorRun.style.display = "none";
+                if(errorRun) errorRun.style.display = "none";
             }
 
-            // VALIDACIÓN CORREO
             let inputCorreo = document.getElementById("correo");
             let errorCorreo = document.getElementById("error-correo");
-            let valorCorreo = inputCorreo.value.trim().toLowerCase();
+            let valorCorreo = inputCorreo ? inputCorreo.value.trim().toLowerCase() : "";
 
             if (valorCorreo === "") {
-                errorCorreo.textContent = "El correo es obligatorio.";
-                errorCorreo.style.display = "block";
+                if(errorCorreo) { errorCorreo.textContent = "El correo es obligatorio."; errorCorreo.style.display = "block"; }
                 formularioValido = false;
-            } else if (
-                !valorCorreo.endsWith("@gmail.com") && 
-                !valorCorreo.endsWith("@duoc.cl") && 
-                !valorCorreo.endsWith("@profesor.duoc.cl")
-            ) {
-                errorCorreo.textContent = "Use un correo @gmail.com, @duoc.cl o @profesor.duoc.cl";
-                errorCorreo.style.display = "block";
+            } else if (!valorCorreo.endsWith("@gmail.com") && !valorCorreo.endsWith("@duoc.cl") && !valorCorreo.endsWith("@profesor.duoc.cl")) {
+                if(errorCorreo) { errorCorreo.textContent = "Use un correo válido."; errorCorreo.style.display = "block"; }
                 formularioValido = false;
             } else {
-                errorCorreo.style.display = "none";
+                if(errorCorreo) errorCorreo.style.display = "none";
             }
 
             if (formularioValido === true) {
-                // GUARDADO DE USUARIO EN MEMORIA
                 let nuevoUsuario = {
                     nombre: document.getElementById("nombreUsuario").value + " " + document.getElementById("apellidos").value,
                     email: valorCorreo,
@@ -58,7 +47,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     esAdmin: document.getElementById("rol").value === "Administrador"
                 };
                 localStorage.setItem("usuarioRegistrado", JSON.stringify(nuevoUsuario));
-                
                 alert("¡Usuario guardado correctamente en la memoria!");
                 formNuevoUsuario.reset();
             }
@@ -75,64 +63,52 @@ document.addEventListener("DOMContentLoaded", function() {
             evento.preventDefault();
             let formularioValido = true;
 
-            // VALIDACIÓN CÓDIGO
             let inputCodigo = document.getElementById("codigo");
             let errorCodigo = document.getElementById("error-codigo");
-            let valorCodigo = inputCodigo.value.trim();
+            let valorCodigo = inputCodigo ? inputCodigo.value.trim() : "";
 
             if (valorCodigo === "") {
-                errorCodigo.textContent = "El código no puede estar vacío.";
-                errorCodigo.style.display = "block";
+                if(errorCodigo) { errorCodigo.textContent = "El código no puede estar vacío."; errorCodigo.style.display = "block"; }
                 formularioValido = false;
             } else if (valorCodigo.length < 3) {
-                errorCodigo.textContent = "El código debe tener al menos 3 caracteres.";
-                errorCodigo.style.display = "block";
+                if(errorCodigo) { errorCodigo.textContent = "Mínimo 3 caracteres."; errorCodigo.style.display = "block"; }
                 formularioValido = false;
             } else {
-                errorCodigo.style.display = "none";
+                if(errorCodigo) errorCodigo.style.display = "none";
             }
 
-            // VALIDACIÓN PRECIO
             let inputPrecio = document.getElementById("precio");
             let errorPrecio = document.getElementById("error-precio");
-            let valorPrecio = inputPrecio.value;
+            let valorPrecio = inputPrecio ? inputPrecio.value : "";
 
             if (valorPrecio === "") {
-                errorPrecio.textContent = "El precio es obligatorio.";
-                errorPrecio.style.display = "block";
+                if(errorPrecio) { errorPrecio.textContent = "El precio es obligatorio."; errorPrecio.style.display = "block"; }
                 formularioValido = false;
             } else if (Number(valorPrecio) < 0) {
-                errorPrecio.textContent = "El precio no puede ser un número negativo.";
-                errorPrecio.style.display = "block";
+                if(errorPrecio) { errorPrecio.textContent = "El precio no puede ser negativo."; errorPrecio.style.display = "block"; }
                 formularioValido = false;
             } else {
-                errorPrecio.style.display = "none";
+                if(errorPrecio) errorPrecio.style.display = "none";
             }
 
-            // VALIDACIÓN STOCK
             let inputStock = document.getElementById("stock");
             let errorStock = document.getElementById("error-stock");
-            let valorStock = inputStock.value;
+            let valorStock = inputStock ? inputStock.value : "";
 
             if (valorStock === "") {
-                errorStock.textContent = "El stock es obligatorio.";
-                errorStock.style.display = "block";
+                if(errorStock) { errorStock.textContent = "El stock es obligatorio."; errorStock.style.display = "block"; }
                 formularioValido = false;
             } else if (Number(valorStock) < 0) {
-                errorStock.textContent = "El stock no puede ser negativo.";
-                errorStock.style.display = "block";
+                if(errorStock) { errorStock.textContent = "El stock no puede ser negativo."; errorStock.style.display = "block"; }
                 formularioValido = false;
             } else {
-                errorStock.style.display = "none";
+                if(errorStock) errorStock.style.display = "none";
             }
 
-            // SI TODO ESTÁ BIEN, GUARDAMOS EN LA MEMORIA CON EL TRUCO NINJA
             if (formularioValido === true) {
-                // Capturamos el archivo de imagen si el usuario subió uno
                 let inputImagen = document.getElementById("imagen");
                 let archivo = inputImagen ? inputImagen.files[0] : null;
 
-                // Función interna para guardar (se ejecutará con o sin imagen)
                 const guardarDatos = (rutaImagen) => {
                     let listaProductos = JSON.parse(localStorage.getItem("productosTienda")) || [];
                     
@@ -150,32 +126,37 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (esEdicion) {
                         let index = listaProductos.findIndex(p => p.codigo === valorCodigo);
                         if (index !== -1) {
-                            // Si editamos y NO subimos foto nueva, mantenemos la foto original
                             if (!archivo && listaProductos[index].imagen) {
                                 datosProducto.imagen = listaProductos[index].imagen;
                             }
                             listaProductos[index] = datosProducto;
                         }
-                        alert("¡Producto modificado y actualizado en la tienda!");
                     } else {
                         listaProductos.push(datosProducto);
-                        alert("¡Producto nuevo guardado y enviado a la tienda!");
-                        formNuevoProducto.reset(); 
                     }
 
-                    localStorage.setItem("productosTienda", JSON.stringify(listaProductos));
+                    // ESCUDO CONTRA IMÁGENES PESADAS (Memoria Llena)
+                    try {
+                        localStorage.setItem("productosTienda", JSON.stringify(listaProductos));
+                        if (esEdicion) {
+                            alert("¡Producto modificado y actualizado en la tienda!");
+                        } else {
+                            alert("¡Producto nuevo guardado y enviado a la tienda!");
+                            formNuevoProducto.reset(); 
+                        }
+                    } catch (error) {
+                        alert("⚠️ ERROR: La imagen es muy pesada y la memoria (localStorage) se llenó. Intenta usar un archivo .jpg o .png más pequeño (menos de 1MB).");
+                    }
                 };
 
-                // Magia Frontend: Si hay archivo, lo convertimos a texto (Base64) para el localStorage
                 if (archivo) {
                     let lector = new FileReader();
                     lector.onload = function(eventoLectura) {
                         let imagenBase64 = eventoLectura.target.result;
-                        guardarDatos(imagenBase64); // Guardamos con la imagen transformada
+                        guardarDatos(imagenBase64); 
                     };
                     lector.readAsDataURL(archivo);
                 } else {
-                    // Si no subió foto, usamos la hamburguesa por defecto
                     guardarDatos("../img/hamburguesa-index.webp");
                 }
             }
@@ -193,5 +174,4 @@ document.addEventListener("DOMContentLoaded", function() {
             sidebar.classList.toggle("mostrar");
         });
     }
-
 });
