@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Administrador</title>
+    <title>Dashboard - Admin</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
-
 <body class="admin-layout">
 
-    <!-- MENÚ VERTICAL (SIDEBAR) -->
     <aside class="admin-sidebar">
         <div class="logo">
             <span class="logo-icon">🍔</span>
@@ -18,9 +16,7 @@
         
         <nav class="sidebar-nav">
             <ul>
-                <li>
-                    <a href="index.html" class="active">🏠 Dashboard (Home)</a>
-                </li>
+                <li><a href="index.html" class="active">🏠 Dashboard</a></li>
                 
                 <li class="nav-category">Gestión de Productos</li>
                 <li><a href="mostrar_productos.html">📦 Listar Productos</a></li>
@@ -29,49 +25,83 @@
                 <li class="nav-category">Gestión de Usuarios</li>
                 <li><a href="mostrar_usuarios.html">👥 Listar Usuarios</a></li>
                 <li><a href="nuevo_usuario.html">➕ Nuevo Usuario</a></li>
+                
+                <li class="nav-category">Sistema</li>
+                <li><a href="#" id="btn-salir" style="color: #ff4d4d;">🚪 Cerrar Sesión</a></li>
             </ul>
         </nav>
     </aside>
 
-    <!-- CONTENIDO PRINCIPAL AL CENTRO -->
     <main class="admin-main">
-        
-        <!-- Botón Hamburguesa (Solo visible en celulares) -->
         <button id="btn-menu" class="btn-menu-movil">☰ Menú</button>
-        
-        <!-- Cabecera Superior -->
-        <header class="top-header">
-            <h1>¡HOLA Administrador!</h1>
-            <div class="notification-icon">🔔</div>
+        <header class="admin-header">
+            <h1>Resumen del Sistema</h1>
+            <h2 id="saludo-admin" style="color: var(--primary-color); margin-top: 10px; font-weight: normal;"></h2>
         </header>
 
-        <!-- Área de Trabajo / Dashboard -->
         <section class="dashboard-content">
-            
-            <div class="welcome-card">
-                <h2>Bienvenido al Panel de Control</h2>
-                <p>Selecciona una opción del menú lateral para comenzar a administrar la tienda.</p>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
                 
-                <!-- Tarjetas de Resumen Visuales -->
-                <div class="stats-grid">
-                    
-                    <article class="stat-card primary-stat">
-                        <h4>Total Productos</h4>
-                        <p class="stat-number">15</p>
-                    </article>
-
-                    <article class="stat-card success-stat">
-                        <h4>Usuarios Activos</h4>
-                        <p class="stat-number">4</p>
-                    </article>
-
+                <div class="form-card" style="flex: 1; text-align: center; padding: 30px;">
+                    <h3 style="color: #333;">Total de Productos</h3>
+                    <p id="total-productos" style="font-size: 4rem; font-weight: bold; color: var(--primary-color); margin-top: 15px;">0</p>
                 </div>
-            </div>
 
+                <div class="form-card" style="flex: 1; text-align: center; padding: 30px;">
+                    <h3 style="color: #333;">Total de Usuarios</h3>
+                    <p id="total-usuarios" style="font-size: 4rem; font-weight: bold; color: var(--primary-color); margin-top: 15px;">0</p>
+                </div>
+
+            </div>
         </section>
         
     </main>
 
-    <script src="../js/validaciones_admin.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            let productos = JSON.parse(localStorage.getItem("productosTienda"));
+            if (productos != null) {
+                document.getElementById("total-productos").textContent = productos.length;
+            }
+
+            let usuarioNuevo = JSON.parse(localStorage.getItem("usuarioRegistrado"));
+            let totalUsuarios = 3;
+            if (usuarioNuevo != null) {
+                totalUsuarios = totalUsuarios + 1;
+            }
+            document.getElementById("total-usuarios").textContent = totalUsuarios;
+
+            let usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+            if (usuarioActivo != null) {
+                document.getElementById("saludo-admin").textContent = "¡Bienvenido, " + usuarioActivo.nombre + "!";
+            } else {
+                document.getElementById("saludo-admin").textContent = "¡Bienvenido, Administrador!";
+            }
+
+            let btnSalir = document.getElementById("btn-salir");
+            if (btnSalir != null) {
+                btnSalir.addEventListener("click", function(evento) {
+                    evento.preventDefault();
+                    if (confirm("¿Estás seguro que deseas cerrar sesión?") === true) {
+                        localStorage.removeItem("usuarioActivo");
+                        window.location.href = "../login.html";
+                    }
+                });
+            }
+
+            let btnMenu = document.getElementById("btn-menu");
+            let sidebar = document.querySelector(".admin-sidebar");
+            if (btnMenu != null && sidebar != null) {
+                btnMenu.addEventListener("click", function() {
+                    if (sidebar.classList.contains("mostrar")) {
+                        sidebar.classList.remove("mostrar");
+                    } else {
+                        sidebar.classList.add("mostrar");
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
