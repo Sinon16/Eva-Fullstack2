@@ -76,22 +76,21 @@
                         </select>
                         <span class="error-message" id="error-rol"></span>
                     </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="region">Región</label>
-                            <select id="region" name="region">
-                                <option value="">Seleccione Región</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="comuna">Comuna</label>
-                            <select id="comuna" name="comuna">
-                                <option value="">Seleccione Comuna</option>
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <label for="region">Región *</label>
+                        <select id="region" name="region" required onchange="cargarComunas()">
+                            <option value="">Seleccione una región</option>
+                            <option value="Metropolitana">Región Metropolitana</option>
+                            <option value="Valparaiso">Región de Valparaíso</option>
+                        </select>
                     </div>
 
+                    <div class="form-group">
+                        <label for="comuna">Comuna *</label>
+                        <select id="comuna" name="comuna" required>
+                            <option value="">Seleccione una comuna</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="direccion">Dirección *</label>
                         <input type="text" id="direccion" name="direccion" maxlength="300" placeholder="Ej: Av. Concha y Toro 123" required>
@@ -104,6 +103,34 @@
         </section>
 
     </main>
+    <script>
+        function cargarComunas() {
+            let selectRegion = document.getElementById("region").value;
+            let selectComuna = document.getElementById("comuna");
+            
+            // Limpiamos las comunas anteriores
+            selectComuna.innerHTML = "<option value=''>Seleccione una comuna</option>";
+            
+            // Arreglos fijos con comunas de ejemplo
+            let comunasRM = ["El Bosque", "Santiago", "San Bernardo", "Puente Alto", "Maipú"];
+            let comunasValpo = ["Valparaíso", "Viña del Mar", "Quilpué", "Villa Alemana"];
+            
+            let listaMostrar = [];
+            
+            if (selectRegion === "Metropolitana") {
+                listaMostrar = comunasRM;
+            } else if (selectRegion === "Valparaiso") {
+                listaMostrar = comunasValpo;
+            }
+            
+            // Recorremos el arreglo con un ciclo FOR tradicional
+            for (let i = 0; i < listaMostrar.length; i++) {
+                let nombreComuna = listaMostrar[i];
+                let opcion = "<option value='" + nombreComuna + "'>" + nombreComuna + "</option>";
+                selectComuna.innerHTML += opcion;
+            }
+        }
+    </script>
     <script src="../js/validaciones_admin.js"></script>
 
 

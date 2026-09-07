@@ -11,7 +11,7 @@
 <body class="admin-layout">
 
     <aside class="admin-sidebar">
-                <div class="logo">
+        <div class="logo">
             <span class="logo-icon">🍔</span>
             <h1>Sabor & Aroma</h1>
         </div>
@@ -50,7 +50,6 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <!-- Dejamos el cuerpo de la tabla vacío para que JS lo llene -->
                 <tbody id="body-productos">
                     
                 </tbody>
@@ -58,10 +57,11 @@
         </section>
         
     </main>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     
-<script>
+    <script>
         $(document).ready(function() {
             let memoria = localStorage.getItem("productosTienda");
             let productos = [];
@@ -87,7 +87,7 @@
                 fila += "<td class='badge-vendedor'>Disponible</td>";
                 fila += "<td>";
                 fila += "<a href='editar_producto.html?codigo=" + p.codigo + "' class='action-link action-edit'>Editar</a> ";
-                fila += "<a href='#' class='action-link action-delete'>Eliminar</a>";
+                fila += "<a href='#' class='action-link action-delete' onclick='eliminarProducto(\"" + p.codigo + "\")'>Eliminar</a>";
                 fila += "</td>";
                 fila += "</tr>";
                 
@@ -100,7 +100,29 @@
                 }
             });
         });
-    </script>
+
+        function eliminarProducto(codigoEliminar) {
+            let confirmar = confirm("¿Estás seguro de que deseas eliminar este producto?");
+            
+            if (confirmar === true) {
+                let memoria = localStorage.getItem("productosTienda");
+                
+                if (memoria != null) {
+                    let listaProductos = JSON.parse(memoria);
+                    let nuevaLista = [];
+                    
+                    for (let i = 0; i < listaProductos.length; i++) {
+                        if (listaProductos[i].codigo !== codigoEliminar) {
+                            nuevaLista.push(listaProductos[i]);
+                        }
+                    }
+                    
+                    localStorage.setItem("productosTienda", JSON.stringify(nuevaLista));
+                    alert("¡Producto eliminado correctamente!");
+                    window.location.reload();
+                }
+            }
+        }
     </script>
     <script src="../js/validaciones_admin.js"></script>
 </body>

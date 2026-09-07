@@ -96,7 +96,7 @@
                 fila += "<td class='" + claseRol + "'>" + rolTexto + "</td>";
                 fila += "<td>";
                 fila += "<a href='editar_usuario.html' class='action-link action-edit'>Editar</a> ";
-                fila += "<a href='#' class='action-link action-delete'>Eliminar</a>";
+                fila += "<a href='#' class='action-link action-delete' onclick='eliminarUsuario(\"" + u.email + "\")'>Eliminar</a>";
                 fila += "</td>";
                 fila += "</tr>";
                 
@@ -109,7 +109,28 @@
                 }
             });
         });
-    </script>
+
+        function eliminarUsuario(correoEliminar) {
+            let confirmar = confirm("¿Estás seguro de que deseas eliminar este usuario?");
+            
+            if (confirmar === true) {
+                let memoria = localStorage.getItem("usuarioRegistrado");
+                
+                if (memoria != null) {
+                    let usuarioGuardado = JSON.parse(memoria);
+                    
+                    if (usuarioGuardado.email === correoEliminar) {
+                        localStorage.removeItem("usuarioRegistrado");
+                        alert("¡Usuario eliminado correctamente!");
+                        window.location.reload();
+                    } else {
+                        alert("No se pueden eliminar los usuarios predefinidos del sistema.");
+                    }
+                } else {
+                    alert("No hay usuarios personalizados en la memoria para eliminar.");
+                }
+            }
+        }
     </script>
     <script src="../js/validaciones_admin.js"></script>
 
