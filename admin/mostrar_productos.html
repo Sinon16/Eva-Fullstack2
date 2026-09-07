@@ -61,38 +61,46 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     
-    <!-- Script para leer la memoria e inicializar la tabla en Español -->
-    <script>
+<script>
         $(document).ready(function() {
-            // 1. Buscamos los productos en la libreta (memoria del navegador)
-            let productosMemoria = JSON.parse(localStorage.getItem("productosTienda")) || [];
+            let memoria = localStorage.getItem("productosTienda");
+            let productos = [];
+            
+            if (memoria != null) {
+                productos = JSON.parse(memoria);
+            }
+            
             let tbody = document.getElementById("body-productos");
             
-            // 2. Por cada producto guardado, creamos una fila en la tabla
-            productosMemoria.forEach(p => {
-                let fila = `
-                    <tr>
-                        <td><strong>${p.codigo || 'N/A'}</strong></td>
-                        <td>${p.nombre}</td>
-                        <td>${p.categoria}</td>
-                        <td>$${p.precio}</td>
-                        <td class="badge-vendedor">Disponible</td>
-                        <td>
-                        <a href="editar_producto.html?codigo=${p.codigo}" class="action-link action-edit">Editar</a>                           
-                        <a href="#" class="action-link action-delete">Eliminar</a>
-                        </td>
-                    </tr>
-                `;
-                tbody.innerHTML += fila;
-            });
+            for (let i = 0; i < productos.length; i++) {
+                let p = productos[i];
+                let codigoMostrar = "N/A";
+                if (p.codigo != null) {
+                    codigoMostrar = p.codigo;
+                }
 
-            // 3. Recién AHORA que la tabla tiene datos, encendemos el plugin DataTables
+                let fila = "<tr>";
+                fila += "<td><strong>" + codigoMostrar + "</strong></td>";
+                fila += "<td>" + p.nombre + "</td>";
+                fila += "<td>" + p.categoria + "</td>";
+                fila += "<td>$" + p.precio + "</td>";
+                fila += "<td class='badge-vendedor'>Disponible</td>";
+                fila += "<td>";
+                fila += "<a href='editar_producto.html?codigo=" + p.codigo + "' class='action-link action-edit'>Editar</a> ";
+                fila += "<a href='#' class='action-link action-delete'>Eliminar</a>";
+                fila += "</td>";
+                fila += "</tr>";
+                
+                tbody.innerHTML += fila;
+            }
+
             $('#tabla-productos').DataTable({
                 "language": {
                     "url": "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
                 }
             });
         });
+    </script>
     </script>
     <script src="../js/validaciones_admin.js"></script>
 </body>

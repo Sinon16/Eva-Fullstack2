@@ -42,8 +42,6 @@
                 <form id="form-editar-producto">
                     <div class="form-group">
                         <label for="codigo">Código del Producto *</label>
-                        <!-- AQUÍ ESTÁ LA CLAVE: El campo readonly -->
-                        
                         <input type="text" id="codigo" name="codigo" minlength="3" readonly required>
                         <span class="error-message" id="error-codigo"></span>
                     </div>
@@ -63,7 +61,6 @@
                         
                         <div class="form-group">
                             <label for="stock">Stock *</label>
-                            <!-- El stock inicializa en 0 si no lo tenemos en la bd del compañero -->
                             <input type="number" id="stock" name="stock" min="0" step="1" value="0" required>
                             <span class="error-message" id="error-stock"></span>
                         </div>
@@ -82,7 +79,6 @@
                         <span class="error-message" id="error-categoria"></span>
                     </div>
 
-                    <!-- CAMPO: Subir Imagen para reemplazar la anterior -->
                     <div class="form-group">
                         <label for="imagen">Cambiar Imagen (Opcional)</label>
                         <input type="file" id="imagen" name="imagen" accept="image/*">
@@ -97,37 +93,36 @@
 
     </main>
 
-    <!-- Script para autocompletar el formulario -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // 1. Obtener el código que viene en la URL
-            const parametros = new URLSearchParams(window.location.search);
-            const codigoFiltro = parametros.get("codigo");
+            let parametros = new URLSearchParams(window.location.search);
+            let codigoFiltro = parametros.get("codigo");
 
-            // 2. Si hay un código, buscamos el producto en la memoria
-            if (codigoFiltro) {
-                let productosMemoria = JSON.parse(localStorage.getItem("productosTienda")) || [];
-                let productoEncontrado = productosMemoria.find(p => p.codigo === codigoFiltro);
-
-                if (productoEncontrado) {
-                    // 3. Rellenamos los campos del formulario con los datos reales
-                    document.getElementById("codigo").value = productoEncontrado.codigo;
-                    document.getElementById("nombre").value = productoEncontrado.nombre;
-                    document.getElementById("precio").value = productoEncontrado.precio;
+            if (codigoFiltro != null) {
+                let memoria = localStorage.getItem("productosTienda");
+                
+                if (memoria != null) {
+                    let listaProductos = JSON.parse(memoria);
                     
-                    // Seleccionar la categoría correcta en el dropdown
-                    let selectCategoria = document.getElementById("categoria");
-                    if (selectCategoria && productoEncontrado.categoria) {
-                        selectCategoria.value = productoEncontrado.categoria;
+                    for (let i = 0; i < listaProductos.length; i++) {
+                        let producto = listaProductos[i];
+                        
+                        if (producto.codigo === codigoFiltro) {
+                            document.getElementById("codigo").value = producto.codigo;
+                            document.getElementById("nombre").value = producto.nombre;
+                            document.getElementById("precio").value = producto.precio;
+                            
+                            let selectCategoria = document.getElementById("categoria");
+                            if (selectCategoria != null) {
+                                selectCategoria.value = producto.categoria;
+                            }
+                        }
                     }
-                } else {
-                    alert("No se encontró el producto en la memoria.");
                 }
             }
         });
     </script>
 
-    <!-- Cargamos tus validaciones -->
     <script src="../js/validaciones_admin.js"></script>
 </body>
 </html>

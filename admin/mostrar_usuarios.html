@@ -59,44 +59,49 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     
-    <script>
+<script>
         $(document).ready(function() {
             let tbody = document.getElementById("body-usuarios");
-            let usuariosParaMostrar = [];
+            let usuarios = [];
 
-            const usuariosPredefinidos = [
-                { nombre: "Usuario Gmail", email: "estudiante@gmail.com", esAdmin: false },
-                { nombre: "Alumno Duoc", email: "alumno@duoc.cl", esAdmin: false },
-                { nombre: "Profesor Duoc (Admin)", email: "profe@profesor.duoc.cl", esAdmin: true }
-            ];
+            let u1 = { nombre: "Usuario Gmail", email: "estudiante@gmail.com", esAdmin: false };
+            let u2 = { nombre: "Alumno Duoc", email: "alumno@duoc.cl", esAdmin: false };
+            let u3 = { nombre: "Profesor Duoc (Admin)", email: "profe@profesor.duoc.cl", esAdmin: true };
             
-            usuariosParaMostrar = usuariosParaMostrar.concat(usuariosPredefinidos);
+            usuarios.push(u1);
+            usuarios.push(u2);
+            usuarios.push(u3);
 
-            let usuarioRegistrado = JSON.parse(localStorage.getItem("usuarioRegistrado"));
-            
-            if (usuarioRegistrado) {
-                usuariosParaMostrar.push(usuarioRegistrado);
+            let memoria = localStorage.getItem("usuarioRegistrado");
+            if (memoria != null) {
+                let uNuevo = JSON.parse(memoria);
+                usuarios.push(uNuevo);
             }
 
-            usuariosParaMostrar.forEach((u, index) => {
-                let runFalso = u.run || `1${index}234567-K`; 
-                let rolTexto = u.esAdmin ? "Administrador" : "Cliente";
-                let claseRol = u.esAdmin ? "badge-admin" : "badge-cliente";
+            for (let i = 0; i < usuarios.length; i++) {
+                let u = usuarios[i];
+                let run = "1" + i + "234567-K";
+                let rolTexto = "Cliente";
+                let claseRol = "badge-cliente";
+                
+                if (u.esAdmin === true) {
+                    rolTexto = "Administrador";
+                    claseRol = "badge-admin";
+                }
 
-                let fila = `
-                    <tr>
-                        <td><strong>${runFalso}</strong></td>
-                        <td>${u.nombre}</td>
-                        <td>${u.email}</td>
-                        <td class="${claseRol}">${rolTexto}</td>
-                        <td>
-                            <a href="editar_usuario.html" class="action-link action-edit">Editar</a>
-                            <a href="#" class="action-link action-delete">Eliminar</a>
-                        </td>
-                    </tr>
-                `;
+                let fila = "<tr>";
+                fila += "<td><strong>" + run + "</strong></td>";
+                fila += "<td>" + u.nombre + "</td>";
+                fila += "<td>" + u.email + "</td>";
+                fila += "<td class='" + claseRol + "'>" + rolTexto + "</td>";
+                fila += "<td>";
+                fila += "<a href='editar_usuario.html' class='action-link action-edit'>Editar</a> ";
+                fila += "<a href='#' class='action-link action-delete'>Eliminar</a>";
+                fila += "</td>";
+                fila += "</tr>";
+                
                 tbody.innerHTML += fila;
-            });
+            }
 
             $('#tabla-usuarios').DataTable({
                 "language": {
@@ -104,6 +109,7 @@
                 }
             });
         });
+    </script>
     </script>
     <script src="../js/validaciones_admin.js"></script>
 
