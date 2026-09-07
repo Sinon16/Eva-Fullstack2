@@ -1,11 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sabor & AROMA - Detalle de Producto</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    
+
+    <header class="main-header">
+        <div class="logo">
+            <span class="logo-icon">🍔</span>
+            <h1>Sabor & Aroma</h1>
+        </div>
+        
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li class="separator">|</li>
+                <li><a href="productos.html">Menú</a></li>
+                <li class="separator">|</li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li class="separator">|</li>
+                <li><a href="blogs.html">Blog Culinario</a></li>
+                <li class="separator">|</li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+
+        <div class="cart-action">
+            <a href="carrito.html" class="cart-btn">🛒 Mi Pedido (0)</a>
+        </div>
+    </header>
+
+    <div class="user-subbar" id="user-subbar">
+        <div class="user-links">
+            <a href="login.html">Iniciar sesión</a>
+            <span class="separator">|</span>
+            <a href="registro.html">Crear cuenta</a>
+        </div>
+    </div>
+
+    <div class="container">
+    <main class="main-content" style="width: 100%;">
+        <div class="back-container">
+            <a href="productos.html" style="color: var(--link-color); text-decoration: none; font-weight: bold;">← Volver al Menú</a>
+        </div>
+
+        <!-- Contenedor del producto actual -->
+        <div id="contenedor-detalle"></div>
+
+        <!-- SECCIÓN NUEVA: Productos recomendados -->
+        <section class="productos-recomendados" style="margin-top: 3rem;">
+            <h3 style="color: var(--primary-color); margin-bottom: 1.5rem; text-align: center;">También te podría gustar</h3>
+            <div id="contenedor-relacionados" class="grid-productos" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem;"></div>
+        </section>
+    </main>
+</div>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Sabor & Aroma - Comida Real, Sabor Auténtico</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/producto.js"></script>
 </body>
 </html>

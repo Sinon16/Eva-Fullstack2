@@ -21,3 +21,17 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const carrito = JSON.parse(localStorage.getItem("carritoCompras")) || [];
+    let contadorUnidades = 0;
+
+    for (let i = 0; i < carrito.length; i++) {
+        contadorUnidades += carrito[i].cantidad;
+    }
+
+    const botonCarrito = document.querySelector(".cart-btn");
+    if (botonCarrito) {
+        botonCarrito.textContent = `🛒 Mi Pedido (${contadorUnidades})`;
+    }
+});

@@ -18,17 +18,18 @@ if (!inicializado || productos.length === 0) {
         { id: 11, codigo: "P011", nombre: "Cheesecake de Frutos Rojos", categoria: "postres", descripcion: "Pastel de queso cremoso con mermelada.", precio: 5290, imagen: "img/Cheesecake de Frutos Rojos.jpg" },
         { id: 12, codigo: "P012", nombre: "Café Cappuccino Frappé", categoria: "bebidas", descripcion: "Café licuado con hielo, leche y crema.", precio: 3890, imagen: "img/Café Cappuccino Frappé.jpg" }
     ];
-    // Guardamos en la libreta y marcamos como inicializado
     localStorage.setItem("productosTienda", JSON.stringify(productos));
     localStorage.setItem("tiendaInicializada", "true"); 
 }
 
+
 function mostrarProductos(lista) {
     const contenedor = document.getElementById("contenedor-productos");
+    if (!contenedor) return;
+    
     contenedor.innerHTML = ""; 
 
     lista.forEach(p => {
-        // Formato para Peso Chileno ($11.990)
         const precioFormateado = p.precio.toLocaleString('es-CL', { 
             style: 'currency', 
             currency: 'CLP' 
@@ -36,15 +37,17 @@ function mostrarProductos(lista) {
 
         contenedor.innerHTML += `
             <article class="hero-banner">
-                <!-- Carga la imagen mediante p.imagen -->
-                <img src="${p.imagen}" alt="${p.nombre}" onerror="this.src='https://via.placeholder.com/300x200?text=Sin+Imagen'">
+                <a href="detalleproducto.html?id=${p.id}">
+                    <img src="${p.imagen}" alt="${p.nombre}" onerror="this.src='https://via.placeholder.com/300x200?text=Sin+Imagen'" style="cursor: pointer;">
+                </a>
                 <h3>${p.nombre}</h3>
                 <p class="precio">${precioFormateado}</p>
-                <button class="btn-primary">Agregar al Pedido</button>
+                <button class="btn-primary" onclick="agregarAlCarrito(${p.id})">Agregar al Pedido</button>
             </article>
         `;
     });
 }
+
 
 function filtrar(cat) {
     if (cat === "todas") {
@@ -56,17 +59,132 @@ function filtrar(cat) {
 }
 
 
-// Detecta la categoría de la URL al cargar la página
-window.onload = () => {
-    // Obtiene los parámetros de la URL actual
-    const params = new URLSearchParams(window.location.search);
-    const categoriaURL = params.get("cat");
+function agregarAlCarrito(idProducto) {
+    let carrito = JSON.parse(localStorage.getItem("carritoCompras")) || [];
+    let productoEncontrado = carrito.find(item => item.id === idProducto);
 
-    if (categoriaURL) {
-        // Si viene un parámetro ?cat=..., filtra automáticamente
-        filtrar(categoriaURL);
+    if (productoEncontrado) {
+        productoEncontrado.cantidad++;
     } else {
-        // Si se entra directo a productos.html, muestra todo
-        mostrarProductos(productos);
+        let prodOriginal = productos.find(p => p.id === idProducto);
+        if (prodOriginal) {
+            carrito.push({
+                id: prodOriginal.id,
+                nombre: prodOriginal.nombre,
+                descripcion: prodOriginal.descripcion,
+                precio: prodOriginal.precio,
+                imagen: prodOriginal.imagen,
+                cantidad: 1
+            });
+        }
     }
-};
+
+    localStorage.setItem("carritoCompras", JSON.stringify(carrito));
+    actualizarContadorCabecera();
+    alert("¡Producto agregado al pedido!");
+}
+
+
+function actualizarContadorCabecera() {
+    let carrito = JSON.parse(localStorage.getItem("carritoCompras")) || [];
+    let totalUnidades = 0;
+
+    carrito.forEach(prod => {
+        totalUnidades += prod.cantidad;
+    });
+
+    const btnCarrito = document.querySelector(".cart-btn");
+    if (btnCarrito) {
+        btnCarrito.textContent = `🛒 Mi Pedido (${totalUnidades})`;
+    }
+}
+
+
+function cargarProductosAleatorios(idActual) {
+    const contenedorRelacionados = document.getElementById("contenedor-relacionados");
+    if (!contenedorRelacionados) return;
+
+
+    let disponibles = productos.filter(p => p.id !== idActual);
+
+
+    disponibles.sort(() => 0.5 - Math.random());
+
+
+    let seleccionados = disponibles.slice(0, 3);
+
+    contenedorRelacionados.innerHTML = "";
+
+    seleccionados.forEach(p => {
+        const precioFormateado = p.precio.toLocaleString('es-CL', { 
+            style: 'currency', 
+            currency: 'CLP' 
+        });
+
+        contenedorRelacionados.innerHTML += `
+            <article class="hero-banner">
+                <a href="detalleproducto.html?id=${p.id}">
+                    <img src="${p.imagen}" alt="${p.nombre}" onerror="this.src='https://via.placeholder.com/300x200?text=Sin+Imagen'" style="cursor: pointer;">
+                </a>
+                <h3>${p.nombre}</h3>
+                <p class="precio">${precioFormateado}</p>
+                <button class="btn-primary" onclick="agregarAlCarrito(${p.id})">Agregar al Pedido</button>
+            </article>
+        `;
+    });
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    actualizarContadorCabecera();
+
+    const contenedorDetalle = document.getElementById("contenedor-detalle");
+
+    if (contenedorDetalle) {
+        const params = new URLSearchParams(window.location.search);
+        const idURL = parseInt(params.get("id"));
+        const prod = productos.find(p => p.id === idURL);
+
+        if (prod) {
+            const precioFormateado = prod.precio.toLocaleString('es-CL', { 
+                style: 'currency', 
+                currency: 'CLP' 
+            });
+
+            contenedorDetalle.innerHTML = `
+                <div class="detalle-container">
+                    <div class="detalle-imagen">
+                        <img src="${prod.imagen}" alt="${prod.nombre}" onerror="this.src='https://via.placeholder.com/400x300?text=Sin+Imagen'">
+                    </div>
+                    <div class="detalle-info">
+                        <h2>${prod.nombre}</h2>
+                        <span class="precio">${precioFormateado}</span>
+                        <p>${prod.descripcion}</p>
+                        <div>
+                            <button class="btn-primary" onclick="agregarAlCarrito(${prod.id})">Agregar al Pedido</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+
+            cargarProductosAleatorios(prod.id);
+        } else {
+            contenedorDetalle.innerHTML = "<p>El producto no existe o fue removido.</p>";
+        }
+        return;
+    }
+
+
+    const contenedorProductos = document.getElementById("contenedor-productos");
+    if (contenedorProductos) {
+        const params = new URLSearchParams(window.location.search);
+        const categoriaURL = params.get("cat");
+
+        if (categoriaURL) {
+            filtrar(categoriaURL);
+        } else {
+            mostrarProductos(productos);
+        }
+    }
+});

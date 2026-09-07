@@ -583,6 +583,171 @@ img {
 }
 .success-stat .stat-number { color: var(--accent-green); }
 
+/* --- ESTILOS DE LA PÁGINA CARRITO DE COMPRAS --- */
+
+.cart-layout {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.cart-items {
+    flex: 2;
+    min-width: 300px;
+}
+
+.cart-summary {
+    flex: 1;
+    min-width: 260px;
+    border-left: 2px solid #ccc;
+    padding-left: 1.5rem;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-item img {
+    width: 110px;
+    height: 85px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ffcc80;
+}
+
+.cart-item-info {
+    flex: 1;
+}
+
+.cart-item-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+    justify-content: flex-end;
+}
+
+.btn-qty {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--text-color);
+    background: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.qty-input {
+    width: 38px;
+    text-align: center;
+    border: 1px solid #ffcc80;
+    border-radius: 4px;
+    padding: 2px;
+    font-weight: bold;
+}
+
+.total-price {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text-color);
+}
+
+.btn-pay {
+    width: 100%;
+    background-color: var(--accent-green);
+    color: white;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    transition: background 0.3s;
+}
+
+.btn-pay:hover {
+    background-color: #1b5e20;
+}
+
+.btn-aplicar {
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-aplicar:hover {
+    background-color: #d6d6d6;
+}
+
+/* --- ESTILOS DE LA PÁGINA DETALLE DE PRODUCTO --- */
+
+.detalle-container {
+    display: flex;
+    gap: 2.5rem;
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #f0e6df;
+    align-items: center;
+}
+
+.detalle-imagen {
+    flex: 1;
+    max-width: 450px;
+}
+
+.detalle-imagen img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #ffcc80;
+}
+
+.detalle-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.detalle-info h2 {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+.detalle-info .precio {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--text-color);
+}
+
+.detalle-info p {
+    line-height: 1.6;
+    color: #5d4037;
+}
+
+@media (max-width: 768px) {
+    .detalle-container {
+        flex-direction: column;
+    }
+    .detalle-imagen {
+        max-width: 100%;
+    }
+}
+
 /* ESTILOS DE LAS TABLAS (PRODUCTOS Y USUARIOS) */
 
 /* Espaciado para que la tabla no toque los bordes de la pantalla */
