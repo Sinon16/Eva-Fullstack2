@@ -25,6 +25,8 @@
                 <li class="nav-category">Gestión de Usuarios</li>
                 <li><a href="mostrar_usuarios.html" class="active">👥 Listar Usuarios</a></li>
                 <li><a href="nuevo_usuario.html">➕ Nuevo Usuario</a></li>
+                <li class="nav-category">Sistema</li>
+                <li><a href="#" id="btn-salir" style="color: #ff4d4d;">🚪 Cerrar Sesión</a></li>
             </ul>
         </nav>
     </aside>
@@ -128,6 +130,33 @@
                 selectComuna.innerHTML += opcion;
             }
         }
+    </script>
+    <!-- Script para autocompletar el usuario a editar -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let memoria = localStorage.getItem("usuarioRegistrado");
+            
+            if (memoria != null) {
+                let u = JSON.parse(memoria);
+                
+                document.getElementById("nombreUsuario").value = u.nombre;
+                
+                let apellidos = document.getElementById("apellidos");
+                if (apellidos != null) {
+                    apellidos.value = ""; // Lo limpiamos para no duplicar el texto
+                }
+
+                // Bloqueamos el correo para que sea nuestra clave de edición
+                document.getElementById("correo").value = u.email;
+                document.getElementById("correo").setAttribute("readonly", "true"); 
+                
+                if (u.esAdmin === true) {
+                    document.getElementById("rol").value = "Administrador";
+                } else {
+                    document.getElementById("rol").value = "Cliente";
+                }
+            }
+        });
     </script>
     <script src="../js/validaciones_admin.js"></script>
 </body>
