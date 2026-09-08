@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// 3. Validaciones y Redirección al enviar
+
 document.getElementById("form-registro").addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -128,7 +128,7 @@ document.getElementById("form-registro").addEventListener("submit", function (e)
 
     localStorage.setItem("usuarioRegistrado", JSON.stringify(nuevoUsuario));
 
-    // Alerta interactiva y redirección tras presionar Aceptar
+
     alert("¡Registro exitoso! Bienvenido a Sabor & Aroma.");
     window.location.href = "login.html";
 });

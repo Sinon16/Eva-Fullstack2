@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
 
     if (usuarioActivo && userSubbar) {
-        // Renderizar barra para usuario logueado
+  
         userSubbar.innerHTML = `
             <div class="user-links">
                 <span>Hola, <strong>${usuarioActivo.nombre}</strong></span>
@@ -12,12 +12,12 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
         `;
 
-        // Evento para cerrar sesión
+
         document.getElementById("btn-logout").addEventListener("click", function (e) {
             e.preventDefault();
-            localStorage.removeItem("usuarioActivo"); // Eliminar sesión
+            localStorage.removeItem("usuarioActivo"); 
             alert("Has cerrado sesión correctamente.");
-            window.location.reload(); // Recargar para volver a la barra inicial
+            window.location.reload(); 
         });
     }
 });

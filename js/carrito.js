@@ -1,10 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
     let porcentajeDescuento = 0;
 
-    // 1. Cargar productos desde el localStorage
     let carrito = JSON.parse(localStorage.getItem("carritoCompras")) || [];
 
-    // 2. Función para pintar el carrito y actualizar totales
+
     function actualizarVista() {
         const contenedor = document.getElementById("cart-items-container");
         contenedor.innerHTML = "";
@@ -39,19 +38,19 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
 
-        // Aplicar descuento y mostrar total
+
         let totalConDescuento = total * (1 - porcentajeDescuento);
         document.getElementById("cart-total").textContent = `$${Math.round(totalConDescuento).toLocaleString("es-CL")}`;
 
-        // Actualizar botón de la cabecera
+ 
         const btnCarrito = document.getElementById("cart-counter");
         if (btnCarrito) btnCarrito.textContent = `🛒 Mi Pedido (${cantidadTotal})`;
 
-        // Guardar cambios
+
         localStorage.setItem("carritoCompras", JSON.stringify(carrito));
     }
 
-    // 3. Funciones para sumar y restar productos
+ 
     window.sumar = function (i) {
         carrito[i].cantidad++;
         actualizarVista();
@@ -60,12 +59,12 @@ document.addEventListener("DOMContentLoaded", function () {
     window.restar = function (i) {
         carrito[i].cantidad--;
         if (carrito[i].cantidad <= 0) {
-            carrito.splice(i, 1); // Elimina el producto si llega a 0
+            carrito.splice(i, 1); 
         }
         actualizarVista();
     };
 
-    // 4. Aplicar cupón
+
     document.getElementById("btn-apply-coupon").addEventListener("click", function () {
         const cupon = document.getElementById("coupon-code").value.trim().toUpperCase();
         if (cupon === "SABOR10") {
@@ -77,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // 5. Botón Pagar
+  
     document.getElementById("btn-checkout").addEventListener("click", function () {
         if (carrito.length === 0) {
             alert("El carrito está vacío.");
@@ -88,6 +87,6 @@ document.addEventListener("DOMContentLoaded", function () {
         actualizarVista();
     });
 
-    // Cargar la vista al entrar
+  
     actualizarVista();
 });
