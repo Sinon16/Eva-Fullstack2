@@ -61,7 +61,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     
-<script>
+    <script>
         $(document).ready(function() {
             let tbody = document.getElementById("body-usuarios");
             let usuarios = [];
@@ -97,7 +97,8 @@
                 fila += "<td>" + u.email + "</td>";
                 fila += "<td class='" + claseRol + "'>" + rolTexto + "</td>";
                 fila += "<td>";
-                fila += "<a href='editar_usuario.html' class='action-link action-edit'>Editar</a> ";
+                // AQUÍ ESTÁ LA CORRECCIÓN: Agregamos el correo a la URL
+                fila += "<a href='editar_usuario.html?correo=" + u.email + "' class='action-link action-edit'>Editar</a> ";
                 fila += "<a href='#' class='action-link action-delete' onclick='eliminarUsuario(\"" + u.email + "\")'>Eliminar</a>";
                 fila += "</td>";
                 fila += "</tr>";
