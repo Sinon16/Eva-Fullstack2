@@ -45,7 +45,6 @@
                 <form id="form-editar-usuario">
                     <div class="form-group">
                         <label for="run">RUN (Sin puntos ni guion) *</label>
-                        <!-- Sin value fijo, autocompletaremos -->
                         <input type="text" id="run" name="run" minlength="7" maxlength="9" readonly required>
                     </div>
 
@@ -79,7 +78,6 @@
                         <span class="error-message" id="error-rol"></span>
                     </div>
 
-                    <!-- Usamos el mismo select limpio que en registro -->
                     <div class="form-group">
                         <label for="region">Región *</label>
                         <select id="region" name="region" required>
@@ -108,7 +106,6 @@
 
     </main>
 
-    <!-- Script Maestro: Regiones, Autocompletado y Redirección -->
     <script>
         const regionesYComunas = {
             "Arica y Parinacota": ["Arica", "Camarones", "Putre", "General Lagos"],
@@ -130,7 +127,6 @@
         };
 
         document.addEventListener("DOMContentLoaded", function () {
-            // 1. Cargar las regiones en el select
             const selectRegion = document.getElementById("region");
             const selectComuna = document.getElementById("comuna");
 
@@ -141,7 +137,6 @@
                 selectRegion.appendChild(opcion);
             }
 
-            // 2. Comportamiento dinámico de las comunas
             selectRegion.addEventListener("change", function () {
                 const regionSeleccionada = this.value;
                 selectComuna.innerHTML = '<option value="">-- Seleccione la comuna --</option>';
@@ -161,29 +156,46 @@
                 }
             });
 
-            // 3. Autocompletar con los datos de la memoria
-            let memoria = localStorage.getItem("usuarioRegistrado");
-            if (memoria != null) {
-                let u = JSON.parse(memoria);
-                
-                document.getElementById("nombreUsuario").value = u.nombre;
-                
-                let campoCorreo = document.getElementById("correo");
-                campoCorreo.value = u.email;
-                campoCorreo.setAttribute("readonly", "true"); 
-                
-                if (u.esAdmin === true) {
-                    document.getElementById("rol").value = "Administrador";
-                } else {
-                    document.getElementById("rol").value = "Cliente";
+            // Leer la URL y buscar al usuario
+            let parametros = new URLSearchParams(window.location.search);
+            let correoFiltro = parametros.get("correo");
+
+            if (correoFiltro != null) {
+                let usuarios = [];
+                usuarios.push({ nombre: "Usuario Gmail", email: "estudiante@gmail.com", esAdmin: false });
+                usuarios.push({ nombre: "Alumno Duoc", email: "alumno@duoc.cl", esAdmin: false });
+                usuarios.push({ nombre: "Profesor Duoc (Admin)", email: "profe@profesor.duoc.cl", esAdmin: true });
+
+                let memoria = localStorage.getItem("usuarioRegistrado");
+                if (memoria != null) {
+                    usuarios.push(JSON.parse(memoria));
                 }
 
-                document.getElementById("run").value = "12345678-9";
-                document.getElementById("direccion").value = "Dirección de Prueba 123";
+                for (let i = 0; i < usuarios.length; i++) {
+                    let u = usuarios[i];
+                    if (u.email === correoFiltro) {
+                        document.getElementById("nombreUsuario").value = u.nombre;
+                        
+                        let apellidos = document.getElementById("apellidos");
+                        if (apellidos != null) { apellidos.value = ""; }
+
+                        let campoCorreo = document.getElementById("correo");
+                        campoCorreo.value = u.email;
+                        campoCorreo.setAttribute("readonly", "true"); 
+                        
+                        if (u.esAdmin === true) {
+                            document.getElementById("rol").value = "Administrador";
+                        } else {
+                            document.getElementById("rol").value = "Cliente";
+                        }
+
+                        document.getElementById("run").value = "1" + i + "234567-K";
+                        document.getElementById("direccion").value = "Dirección de Prueba 123";
+                    }
+                }
             }
         });
     </script>
-
     <script src="../js/validaciones_admin.js"></script>
 </body>
 </html>

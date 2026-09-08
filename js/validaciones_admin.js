@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     
-    // =========================================================
     // 1. GUARDAR / EDITAR USUARIO
-    // =========================================================
     let formNuevoUsuario = document.getElementById("form-nuevo-usuario");
     let formEditarUsuario = document.getElementById("form-editar-usuario");
     let formUsuario = null;
@@ -21,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function() {
             let apellidosInput = document.getElementById("apellidos");
             let nombreFinal = nombreInput;
             
-            // Si existe el campo apellidos, lo unimos
             if (apellidosInput != null) {
                 nombreFinal = nombreInput + " " + apellidosInput.value;
             }
@@ -38,7 +35,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 nuevoUsuario.esAdmin = true;
             }
 
-            // Rescatamos región y comuna si existen
             let regionElegida = document.getElementById("region");
             if (regionElegida != null) { nuevoUsuario.region = regionElegida.value; }
 
@@ -48,10 +44,9 @@ document.addEventListener("DOMContentLoaded", function() {
             let textoUsuario = JSON.stringify(nuevoUsuario);
             localStorage.setItem("usuarioRegistrado", textoUsuario);
             
-            // REDIRECCIÓN INTELIGENTE
             if (formEditarUsuario != null) {
                 alert("¡Usuario editado y actualizado correctamente!");
-                window.location.href = "mostrar_usuarios.html"; // Te manda a la tabla
+                window.location.href = "mostrar_usuarios.html"; 
             } else {
                 alert("¡Usuario nuevo creado exitosamente!");
                 formUsuario.reset();
@@ -59,9 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // =========================================================
-    // 2. GUARDAR PRODUCTO Y SU FOTO
-    // =========================================================
+    // 2. GUARDAR PRODUCTO
     let formNuevoProducto = document.getElementById("form-nuevo-producto");
     let formEditarProducto = document.getElementById("form-editar-producto");
     let formProducto = null;
@@ -128,9 +121,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // =========================================================
     // 3. MENÚ HAMBURGUESA
-    // =========================================================
     let btnMenu = document.getElementById("btn-menu");
     let sidebar = document.querySelector(".admin-sidebar");
     
@@ -141,9 +132,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // =========================================================
     // 4. CERRAR SESIÓN UNIVERSAL
-    // =========================================================
     let btnSalir = document.getElementById("btn-salir");
     if (btnSalir != null) {
         btnSalir.addEventListener("click", function(evento) {

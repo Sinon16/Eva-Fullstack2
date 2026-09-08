@@ -26,6 +26,7 @@
                 <li class="nav-category">Gestión de Usuarios</li>
                 <li><a href="mostrar_usuarios.html" class="active">👥 Listar Usuarios</a></li>
                 <li><a href="nuevo_usuario.html">➕ Nuevo Usuario</a></li>
+                
                 <li class="nav-category">Sistema</li>
                 <li><a href="#" id="btn-salir" style="color: #ff4d4d;">🚪 Cerrar Sesión</a></li>
             </ul>
@@ -97,7 +98,7 @@
                 fila += "<td>" + u.email + "</td>";
                 fila += "<td class='" + claseRol + "'>" + rolTexto + "</td>";
                 fila += "<td>";
-                // AQUÍ ESTÁ LA CORRECCIÓN: Agregamos el correo a la URL
+                // Aquí va el correo en la URL
                 fila += "<a href='editar_usuario.html?correo=" + u.email + "' class='action-link action-edit'>Editar</a> ";
                 fila += "<a href='#' class='action-link action-delete' onclick='eliminarUsuario(\"" + u.email + "\")'>Eliminar</a>";
                 fila += "</td>";
