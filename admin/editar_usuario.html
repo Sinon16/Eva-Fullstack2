@@ -25,6 +25,7 @@
                 <li class="nav-category">Gestión de Usuarios</li>
                 <li><a href="mostrar_usuarios.html" class="active">👥 Listar Usuarios</a></li>
                 <li><a href="nuevo_usuario.html">➕ Nuevo Usuario</a></li>
+                
                 <li class="nav-category">Sistema</li>
                 <li><a href="#" id="btn-salir" style="color: #ff4d4d;">🚪 Cerrar Sesión</a></li>
             </ul>
@@ -44,26 +45,26 @@
                 <form id="form-editar-usuario">
                     <div class="form-group">
                         <label for="run">RUN (Sin puntos ni guion) *</label>
-                        <!-- El RUN suele ser de solo lectura en las ediciones (readonly) -->
-                        <input type="text" id="run" name="run" minlength="7" maxlength="9" value="19011022K" readonly required>
+                        <!-- Sin value fijo, autocompletaremos -->
+                        <input type="text" id="run" name="run" minlength="7" maxlength="9" readonly required>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="nombreUsuario">Nombre *</label>
-                            <input type="text" id="nombreUsuario" name="nombreUsuario" maxlength="50" value="Juan" required>
+                            <input type="text" id="nombreUsuario" name="nombreUsuario" maxlength="50" required>
                             <span class="error-message" id="error-nombreUsuario"></span>
                         </div>
                         <div class="form-group">
-                            <label for="apellidos">Apellidos *</label>
-                            <input type="text" id="apellidos" name="apellidos" maxlength="100" value="Pérez" required>
+                            <label for="apellidos">Apellidos (Opcional)</label>
+                            <input type="text" id="apellidos" name="apellidos" maxlength="100">
                             <span class="error-message" id="error-apellidos"></span>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="correo">Correo Electrónico *</label>
-                        <input type="email" id="correo" name="correo" maxlength="100" value="juan@duoc.cl" required>
+                        <input type="email" id="correo" name="correo" maxlength="100" required>
                         <span class="error-message" id="error-correo"></span>
                     </div>
 
@@ -71,31 +72,31 @@
                         <label for="rol">Tipo de Usuario *</label>
                         <select id="rol" name="rol" required>
                             <option value="">Seleccione un perfil</option>
-                            <option value="Administrador" selected>Administrador</option>
+                            <option value="Administrador">Administrador</option>
                             <option value="Vendedor">Vendedor</option>
                             <option value="Cliente">Cliente</option>
                         </select>
                         <span class="error-message" id="error-rol"></span>
                     </div>
+
+                    <!-- Usamos el mismo select limpio que en registro -->
                     <div class="form-group">
                         <label for="region">Región *</label>
-                        <select id="region" name="region" required onchange="cargarComunas()">
-                            <option value="">Seleccione una región</option>
-                            <option value="Metropolitana">Región Metropolitana</option>
-                            <option value="Valparaiso">Región de Valparaíso</option>
+                        <select id="region" name="region" required>
+                            <option value="">-- Seleccione la región --</option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="comuna">Comuna *</label>
-                        <select id="comuna" name="comuna" required>
-                            <option value="">Seleccione una comuna</option>
+                        <select id="comuna" name="comuna" required disabled>
+                            <option value="">-- Seleccione la comuna --</option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="direccion">Dirección *</label>
-                        <input type="text" id="direccion" name="direccion" maxlength="300" value="Av. Concha y Toro 123" required>
+                        <input type="text" id="direccion" name="direccion" maxlength="300" required>
                         <span class="error-message" id="error-direccion"></span>
                     </div>
 
@@ -106,58 +107,83 @@
         </section>
 
     </main>
+
+    <!-- Script Maestro: Regiones, Autocompletado y Redirección -->
     <script>
-        function cargarComunas() {
-            let selectRegion = document.getElementById("region").value;
-            let selectComuna = document.getElementById("comuna");
-            
-            selectComuna.innerHTML = "<option value=''>Seleccione una comuna</option>";
-            
-            let comunasRM = ["El Bosque", "Santiago", "San Bernardo", "Puente Alto", "Maipú"];
-            let comunasValpo = ["Valparaíso", "Viña del Mar", "Quilpué", "Villa Alemana"];
-            
-            let listaMostrar = [];
-            
-            if (selectRegion === "Metropolitana") {
-                listaMostrar = comunasRM;
-            } else if (selectRegion === "Valparaiso") {
-                listaMostrar = comunasValpo;
+        const regionesYComunas = {
+            "Arica y Parinacota": ["Arica", "Camarones", "Putre", "General Lagos"],
+            "Tarapacá": ["Iquique", "Alto Hospicio", "Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica"],
+            "Antofagasta": ["Antofagasta", "Mejillones", "Sierra Gorda", "Taltal", "Calama", "Ollagüe", "San Pedro de Atacama", "Tocopilla", "María Elena"],
+            "Atacama": ["Copiapó", "Caldera", "Tierra Amarilla", "Chañaral", "Diego de Almagro", "Vallenar", "Alto del Carmen", "Freirina", "Huasco"],
+            "Coquimbo": ["La Serena", "Coquimbo", "Andacollo", "La Higuera", "Paiguano", "Vicuña", "Illapel", "Canela", "Los Vilos", "Salamanca", "Ovalle", "Combarbalá", "Monte Patria", "Punitaqui", "Río Hurtado"],
+            "Valparaíso": ["Valparaíso", "Casablanca", "Concón", "Juan Fernández", "Puchuncaví", "Quintero", "Viña del Mar", "Isla de Pascua", "Los Andes", "Calle Larga", "Rinconada", "San Esteban", "La Ligua", "Cabildo", "Papudo", "Petorca", "Zapallar", "Quillota", "Calera", "Hijuelas", "La Cruz", "Nogales", "San Antonio", "Algarrobo", "El Quisco", "El Tabo", "Santo Domingo", "San Felipe", "Catemu", "Llaillay", "Panquehue", "Putaendo", "Santa María", "Quilpué", "Limache", "Olmué", "Villa Alemana"],
+            "Región Metropolitana de Santiago": ["Cerrillos", "Cerro Navia", "Conchalí", "El Bosque", "Estación Central", "Huechuraba", "Independencia", "La Cisterna", "La Florida", "La Granja", "La Pintana", "La Reina", "Las Condes", "Lo Barnechea", "Lo Espejo", "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Pedro Aguirre Cerda", "Peñalolén", "Providencia", "Pudahuel", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "San Joaquín", "San Miguel", "San Ramón", "Santiago", "Vitacura", "Puente Alto", "Pirque", "San José de Maipo", "Colina", "Lampa", "Tiltil", "San Bernardo", "Buin", "Calera de Tango", "Paine", "Melipilla", "Alhué", "Curacaví", "María Pinto", "San Pedro", "Talagante", "El Monte", "Isla de Maipo", "Padre Hurtado", "Peñaflor"],
+            "O'Higgins": ["Rancagua", "Codegua", "Coinco", "Doñihue", "Graneros", "Las Cabras", "Machalí", "Malloa", "Mostazal", "Olivar", "Peumo", "Pichidegua", "Quinta de Tilcoco", "Rengo", "Requínoa", "San Vicente", "Pichilemu", "La Estrella", "Litueche", "Marchigüe", "Navidad", "Paredones", "San Fernando", "Chépica", "Chimbarongo", "Lolol", "Nancagua", "Palmilla", "Peralillo", "Placilla", "Pumanque", "Santa Cruz"],
+            "Maule": ["Talca", "Constitución", "Curepto", "Empedrado", "Maule", "Pelarco", "Pencahue", "Río Claro", "San Clemente", "San Rafael", "Cauquenes", "Chanco", "Pelluhue", "Curicó", "Hualañé", "Licantén", "Molina", "Rauco", "Romeral", "Sagrada Familia", "Teno", "Vichuquén", "Linares", "Colbún", "Longaví", "Parral", "San Javier", "Villa Alegre", "Yerbas Buenas"],
+            "Ñuble": ["Chillán", "Bulnes", "Cobquecura", "Coelemu", "Coihueco", "Chillán Viejo", "El Carmen", "Ninhue", "Ñiquén", "Pemuco", "Pinto", "Portezuelo", "Quillón", "Quirihue", "Ranquil", "San Carlos", "San Fabián", "San Ignacio", "San Nicolás", "Treguaco", "Yungay"],
+            "Bío Bío": ["Concepción", "Coronel", "Chiguayante", "Florida", "Graneros", "Hualqui", "Lota", "Penco", "San Pedro de la Paz", "Santa Juana", "Talcahuano", "Tomé", "Hualpén", "Lebu", "Arauco", "Cañete", "Contulmo", "Curanilahue", "Los Álamos", "Tirúa", "Los Ángeles", "Antuco", "Cabrero", "Laja", "Mulchén", "Nacimiento", "Negrete", "Quaco", "Quilleco", "San Rosendo", "Santa Bárbara", "Tucapel", "Yumbel", "Alto Biobío"],
+            "Araucanía": ["Temuco", "Carahue", "Cunco", "Curarrehue", "Freire", "Galvarino", "Gorbea", "Lautaro", "Loncoche", "Melipeuco", "Nueva Imperial", "Padre Las Casas", "Perquenco", "Pitrufquén", "Pucón", "Saavedra", "Teodoro Schmidt", "Toltén", "Vilcún", "Villarrica", "Cholchol", "Angol", "Collipulli", "Curacautín", "Ercilla", "Lonquimay", "Los Sauces", "Lumaco", "Purén", "Renaico", "Traiguén", "Victoria"],
+            "Los Ríos": ["Valdivia", "Corral", "Lanco", "Los Lagos", "Máfil", "Mariquina", "Paillaco", "Panguipulli", "La Unión", "Futrono", "Lago Ranco", "Río Bueno"],
+            "Los Lagos": ["Puerto Montt", "Calbuco", "Cochamó", "Fresia", "Frutillar", "Los Muermos", "Llanquihue", "Maullín", "Puerto Varas", "Castro", "Ancud", "Chonchi", "Curaco de Vélez", "Dalcahue", "Puqueldón", "Queilén", "Quellón", "Quemchi", "Quinchao", "Osorno", "Puerto Octay", "Purranque", "Puyehue", "Río Negro", "San Juan de la Costa", "San Pablo", "Chaitén", "Futaleufú", "Hualaihué", "Palena"],
+            "Aysén": ["Coyhaique", "Lago Verde", "Aysén", "Cisnes", "Guaitecas", "Cochrane", "O'Higgins", "Tortel", "Chile Chico", "Río Ibáñez"],
+            "Magallanes": ["Punta Arenas", "Laguna Blanca", "Río Verde", "San Gregorio", "Cabo de Hornos", "Antártica", "Porvenir", "Primavera", "Timaukel", "Natales", "Torres del Paine"]
+        };
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // 1. Cargar las regiones en el select
+            const selectRegion = document.getElementById("region");
+            const selectComuna = document.getElementById("comuna");
+
+            for (let region in regionesYComunas) {
+                let opcion = document.createElement("option");
+                opcion.value = region;
+                opcion.textContent = region;
+                selectRegion.appendChild(opcion);
             }
-            
-            for (let i = 0; i < listaMostrar.length; i++) {
-                let nombreComuna = listaMostrar[i];
-                let opcion = "<option value='" + nombreComuna + "'>" + nombreComuna + "</option>";
-                selectComuna.innerHTML += opcion;
-            }
-        }
-    </script>
-    <!-- Script para autocompletar el usuario a editar -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
+
+            // 2. Comportamiento dinámico de las comunas
+            selectRegion.addEventListener("change", function () {
+                const regionSeleccionada = this.value;
+                selectComuna.innerHTML = '<option value="">-- Seleccione la comuna --</option>';
+
+                if (regionSeleccionada !== "") {
+                    selectComuna.disabled = false;
+                    const comunas = regionesYComunas[regionSeleccionada];
+
+                    for (let i = 0; i < comunas.length; i++) {
+                        let opcion = document.createElement("option");
+                        opcion.value = comunas[i];
+                        opcion.textContent = comunas[i];
+                        selectComuna.appendChild(opcion);
+                    }
+                } else {
+                    selectComuna.disabled = true;
+                }
+            });
+
+            // 3. Autocompletar con los datos de la memoria
             let memoria = localStorage.getItem("usuarioRegistrado");
-            
             if (memoria != null) {
                 let u = JSON.parse(memoria);
                 
                 document.getElementById("nombreUsuario").value = u.nombre;
                 
-                let apellidos = document.getElementById("apellidos");
-                if (apellidos != null) {
-                    apellidos.value = ""; // Lo limpiamos para no duplicar el texto
-                }
-
-                // Bloqueamos el correo para que sea nuestra clave de edición
-                document.getElementById("correo").value = u.email;
-                document.getElementById("correo").setAttribute("readonly", "true"); 
+                let campoCorreo = document.getElementById("correo");
+                campoCorreo.value = u.email;
+                campoCorreo.setAttribute("readonly", "true"); 
                 
                 if (u.esAdmin === true) {
                     document.getElementById("rol").value = "Administrador";
                 } else {
                     document.getElementById("rol").value = "Cliente";
                 }
+
+                document.getElementById("run").value = "12345678-9";
+                document.getElementById("direccion").value = "Dirección de Prueba 123";
             }
         });
     </script>
+
     <script src="../js/validaciones_admin.js"></script>
 </body>
 </html>
