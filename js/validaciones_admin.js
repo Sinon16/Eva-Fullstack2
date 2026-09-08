@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     
-    // 1. GUARDAR / EDITAR USUARIO
+    // guardar y editar usuarios
     let formNuevoUsuario = document.getElementById("form-nuevo-usuario");
     let formEditarUsuario = document.getElementById("form-editar-usuario");
     let formUsuario = null;
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // 2. GUARDAR PRODUCTO
+    // guardado y edición de productos 
     let formNuevoProducto = document.getElementById("form-nuevo-producto");
     let formEditarProducto = document.getElementById("form-editar-producto");
     let formProducto = null;
@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // 3. MENÚ HAMBURGUESA
+    //menu lateral
     let btnMenu = document.getElementById("btn-menu");
     let sidebar = document.querySelector(".admin-sidebar");
     
@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // 4. CERRAR SESIÓN UNIVERSAL
+    // cerrar sesión
     let btnSalir = document.getElementById("btn-salir");
     if (btnSalir != null) {
         btnSalir.addEventListener("click", function(evento) {

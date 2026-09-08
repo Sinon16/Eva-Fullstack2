@@ -111,10 +111,8 @@
             let selectRegion = document.getElementById("region").value;
             let selectComuna = document.getElementById("comuna");
             
-            // Limpiamos las comunas anteriores
             selectComuna.innerHTML = "<option value=''>Seleccione una comuna</option>";
             
-            // Arreglos fijos con comunas de ejemplo
             let comunasRM = ["El Bosque", "Santiago", "San Bernardo", "Puente Alto", "Maipú"];
             let comunasValpo = ["Valparaíso", "Viña del Mar", "Quilpué", "Villa Alemana"];
             
@@ -126,7 +124,6 @@
                 listaMostrar = comunasValpo;
             }
             
-            // Recorremos el arreglo con un ciclo FOR tradicional
             for (let i = 0; i < listaMostrar.length; i++) {
                 let nombreComuna = listaMostrar[i];
                 let opcion = "<option value='" + nombreComuna + "'>" + nombreComuna + "</option>";

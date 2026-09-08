@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Producto - Admin</title>
-    <!-- Referencia a tu CSS principal -->
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body class="admin-layout">
@@ -35,7 +34,6 @@
         </nav>
     </aside>
 
-    <!-- Contenido Principal -->
     <main class="admin-main">
         <button id="btn-menu" class="btn-menu-movil">☰ Menú</button>
         <header class="admin-header">
@@ -43,11 +41,9 @@
         </header>
 
         <section class="dashboard-content">
-            <!-- Usamos las clases correctas en lugar de style="..." -->
             <div class="form-card card-center">
                 <h2 style="color: var(--primary-color); margin-bottom: 1.5rem; text-align: center;">Detalles del Producto</h2>
                 
-                <!-- El ID debe coincidir con el que usamos en validaciones_admin.js -->
                 <form id="form-nuevo-producto">
                     
                     <div class="form-group">
@@ -80,7 +76,6 @@
                         <label for="categoria">Categoría *</label>
                         <select id="categoria" name="categoria" required>
                             <option value="">Seleccione una categoría</option>
-                            <!-- CORRECCIÓN: Estos 'value' ahora son idénticos a los de la tienda -->
                             <option value="pizzas-hamburguesas">Pizzas y Hamburguesas</option>
                             <option value="saludable">Opción Saludable</option>
                             <option value="postres">Postres</option>
@@ -90,7 +85,6 @@
                         <span class="error-message" id="error-categoria"></span>
                     </div>
 
-                    <!-- NUEVO CAMPO: Subir Imagen -->
                     <div class="form-group">
                         <label for="imagen">Imagen del Producto (Opcional)</label>
                         <input type="file" id="imagen" name="imagen" accept="image/*">
@@ -105,7 +99,6 @@
 
     </main>
 
-    <!-- Conectamos nuestro "cerebro" de validaciones al final -->
     <script src="../js/validaciones_admin.js"></script>
 </body>
 </html>
